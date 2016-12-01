@@ -5,12 +5,15 @@ import {
   Button
 } from 'react-onsenui';
 
-import NavBar from './NavBar';
 import NodesIndex from './NodesIndex';
 
+import UserSettings from './UserSettings'
+
 const MainPage = ({navigator}) => (
-  <Page renderToolbar={() => <NavBar title='Home' navigator={navigator} />}>
-    <Button onClick={() => {navigator.pushPage({component: NodesIndex})}}>View Nodes</Button>
+  <Page>
+    <br/>
+    <Button onClick={() => {navigator.pushPage({component: NodesIndex})}}>View Nodes</Button><br/><br/>
+    <Button onClick={() => {navigator.pushPage({component: UserSettings})}}>Settings</Button>
   </Page>
 );
 

@@ -25,6 +25,7 @@ class SignInPage extends React.Component {
     
     this.props.signinUser(values)
     .then(() => {
+      	console.log(that.props.auth.authenticated)
       if (that.props.auth.authenticated) {
       	that.props.navigator.pushPage({component: MainPage})
       } else if (that.props.auth.error) {

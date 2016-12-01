@@ -16,6 +16,7 @@ class App extends Component {
   }
 
   renderPage(route, navigator) {
+    console.log(route)
     if (!this.props.authenticated) {
         return <SignInPage key={route.key} navigator={navigator} />
     } else {
