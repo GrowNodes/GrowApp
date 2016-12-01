@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+// import createLogger from 'redux-logger';
 import {AppContainer} from 'react-hot-loader';
 
 import weatherApp from './reducers';
@@ -16,13 +16,13 @@ import ons from 'onsenui';
 import 'onsenui/css/onsenui.css';
 import './stylus/index.styl';
 
-const logger = createLogger();
+// const logger = createLogger();
 
 const store = createStore(weatherApp,
   window.devToolsExtension ? window.devToolsExtension() : f => f,
   process.env.NODE_ENV === 'production'
     ? applyMiddleware(thunk)
-    : applyMiddleware(thunk, logger)
+    : applyMiddleware(thunk/*, logger */)
 );
 
 import {addLocationAndFetchWeather} from './actions';
