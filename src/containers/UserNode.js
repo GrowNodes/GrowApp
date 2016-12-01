@@ -33,7 +33,7 @@ const styles = {
   }
 };
 
-const GrowNode = ({
+const UserNode = ({
   id,
   name,
   temperature,
@@ -70,7 +70,7 @@ const GrowNode = ({
 
   return (
     <ListItem onClick={() => {
-      actions.selectGrowNode(id);
+      actions.selectUserNode(id);
       navigator.pushPage({component: WeatherPage});
     }} tappable>
       <div className='left'>
@@ -95,7 +95,7 @@ const GrowNode = ({
         </div>
         <div onClick={(e) => {
           e.stopPropagation();
-          actions.removeGrowNode(id);
+          actions.removeUserNode(id);
         }}>
           <Icon icon='trash' className='weather-button' style={styles.removeButton} />
         </div>
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   undefined,
   mapDispatchToProps
-)(GrowNode);
+)(UserNode);

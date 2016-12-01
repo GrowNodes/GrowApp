@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import {AppContainer} from 'react-hot-loader';
 
 import weatherApp from './reducers';
-import App from './components/App';
+import App from './containers/App';
 
 import './icons/css/weather-icons.css';
 
@@ -25,18 +25,6 @@ const store = createStore(weatherApp,
     : applyMiddleware(thunk/*, logger */)
 );
 
-import {addGrowNodeAndFetchWeather} from './actions';
-
-[
-  'Tokyo',
-  'New York',
-  'London',
-  'Beijing',
-  'Sydney',
-  'Rio de Janeiro',
-  'Istanbul'
-].forEach((city) => store.dispatch(addGrowNodeAndFetchWeather(city)));
-
 const rootElement = document.getElementById('root');
 
 ons.ready(() => render(
@@ -49,8 +37,8 @@ ons.ready(() => render(
 ));
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    const NextApp = require('./components/App').default;
+  module.hot.accept('./containers/App', () => {
+    const NextApp = require('./containers/App').default;
     render(
       <AppContainer>
         <Provider store={store}>

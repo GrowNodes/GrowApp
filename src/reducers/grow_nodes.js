@@ -14,7 +14,7 @@ const initialState = {
   humidity: 0
 };
 
-const grow_node = (state = initialState, action) => {
+const user_node = (state = initialState, action) => {
   switch (action.type) {
     case ADD_GROW_NODE:
       return {
@@ -46,12 +46,12 @@ const grow_node = (state = initialState, action) => {
   }
 };
 
-const grow_nodes = (state = {}, action) => {
+const user_nodes = (state = {}, action) => {
   switch (action.type) {
     case ADD_GROW_NODE:
       return {
         ...state,
-        [action.id]: grow_node(undefined, action)
+        [action.id]: user_node(undefined, action)
       };
     case REMOVE_GROW_NODE:
       const {...rest} = state;
@@ -62,11 +62,11 @@ const grow_nodes = (state = {}, action) => {
     case RECEIVE_WEATHER:
       return {
         ...state,
-        [action.id]: grow_node({...state[action.id]}, action)
+        [action.id]: user_node({...state[action.id]}, action)
       };
     default:
       return state;
   }
 };
 
-export default grow_nodes;
+export default user_nodes;

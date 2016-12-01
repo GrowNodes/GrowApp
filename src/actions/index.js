@@ -1,10 +1,10 @@
 import {v4 as generateId} from 'node-uuid';
 
-import {queryWeather} from '../api';
+import {authedApiRequest} from '../api/api';
 
 export const ADD_GROW_NODE = 'ADD_GROW_NODE';
 export const REMOVE_GROW_NODE = 'REMOVE_GROW_NODE';
-export const SELECT_GROW_NODE = 'SELECT_GROW_NODE';
+export const SELECT_USER_NODE = 'SELECT_USER_NODE';
 
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER';
@@ -25,7 +25,7 @@ export const removeGrowNode = id => ({
 });
 
 export const selectGrowNode = id => ({
-  type: SELECT_GROW_NODE,
+  type: SELECT_USER_NODE,
   id
 });
 
@@ -51,7 +51,7 @@ export const fetchWeather = (id) => {
    * weather data asynchronously.
    */
   return (dispatch, getState) => {
-    const name = getState().grow_nodes[id].name;
+    const name = getState().user_nodes[id].name;
 
     dispatch(requestWeather(id));
     queryWeather(name)

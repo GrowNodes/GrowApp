@@ -5,14 +5,14 @@ import {
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
-import GrowNodeList from '../containers/GrowNodeList';
+import UserNodeList from '../containers/UserNodeList';
 import AddGrowNode from '../containers/AddGrowNode';
 
-const NodesIndex = ({navigator}) => (
+const UserNodesPage = ({navigator}) => (
   <Page renderToolbar={() => <NavBar title='Grow Nodes' navigator={navigator} backButton={true}/>}>
-    <GrowNodeList navigator={navigator} />
+    <UserNodeList navigator={navigator} />
     <AddGrowNode />
   </Page>
 );
 
-export default NodesIndex;
+export default UserNodesPage;

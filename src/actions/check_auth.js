@@ -4,7 +4,7 @@ import {
     AUTHFAILED_USER
 } from './types';
 import reactCookie from 'react-cookie';
-import {API_SERVER} from '../util/api.js';
+import {API_SERVER} from '../api/api.js';
 
 // import * as Actions from '../../Nodes/actions/nodes_actions'
 

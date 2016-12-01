@@ -133,7 +133,7 @@ const WeatherPage = ({
 };
 
 const mapStateToProps = (state) => ({
-  ...state.grow_nodes[state.selectedGrowNode]
+  ...state.user_nodes[state.selectedGrowNode]
 });
 
 export default connect(

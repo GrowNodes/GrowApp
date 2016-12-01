@@ -25,7 +25,7 @@ const AddGrowNodeDialog = ({isOpen, actions}) => {
 
   return (
     <AlertDialog isOpen={isOpen} isCancelable={true} onCancel={actions.closeDialog}>
-			<div className='alert-dialog-title'>Add a grow_node</div>
+			<div className='alert-dialog-title'>Add a user_node</div>
 			<div className='alert-dialog-content'>
 				<Input
 					modifier='underbar'
