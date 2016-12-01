@@ -42,7 +42,7 @@ const rootElement = document.getElementById('root');
 ons.ready(() => render(
   <AppContainer>
     <Provider store={store}>
-      <App />
+      <App store={store}/>
     </Provider>
   </AppContainer>,
   rootElement
@@ -54,7 +54,7 @@ if (module.hot) {
     render(
       <AppContainer>
         <Provider store={store}>
-          <NextApp />
+          <NextApp store={store}/>
         </Provider>
       </AppContainer>,
       rootElement

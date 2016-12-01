@@ -8,9 +8,12 @@ import reactCookie from 'react-cookie';
 
 
 export function signinUser({email, password}) {
+    console.log(email, password);
     const emailCandidate = email
     return (dispatch, getState) => {
+        console.log(getState)
         const successPath = getState().auth.successPath;
+
 
         const request = new Request(`${API_SERVER}/authenticate`, {
             method: 'POST',
