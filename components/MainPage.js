@@ -1,17 +1,16 @@
 import React from 'react';
 
 import {
-  Page
+  Page,
+  Button
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
-import LocationList from '../containers/LocationList';
-import AddLocation from '../containers/AddLocation';
+import NodesIndex from './NodesIndex';
 
 const MainPage = ({navigator}) => (
-  <Page renderToolbar={() => <NavBar title='Onsen Weather' navigator={navigator} />}>
-    <LocationList navigator={navigator} />
-    <AddLocation />
+  <Page renderToolbar={() => <NavBar title='Home' navigator={navigator} />}>
+    <Button onClick={() => {navigator.pushPage({component: NodesIndex})}}>View Nodes</Button>
   </Page>
 );
 
