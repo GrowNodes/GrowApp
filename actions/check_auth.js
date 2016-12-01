@@ -1,11 +1,12 @@
 import {
+    AUTHING_USER,
     AUTHED_USER,
     AUTHFAILED_USER
 } from './types';
 import reactCookie from 'react-cookie';
-import {API_SERVER} from '../../utils/api.js';
+import {API_SERVER} from '../util/api.js';
 
-import * as Actions from '../../Nodes/actions/nodes_actions'
+// import * as Actions from '../../Nodes/actions/nodes_actions'
 
 
 export function checkAuthIfNeeded() {
@@ -29,6 +30,7 @@ function shouldCheckAuth(state) {
 
 function checkAuth() {
     return (dispatch) => {
+        dispatch({ type: AUTHING_USER });
         const authCookie = reactCookie.load('authorization');
         const emailCookie = reactCookie.load('email');
 
@@ -50,9 +52,11 @@ function checkAuth() {
                         // Auth check success
                         const payload = { auth_token: authCookie, email: emailCookie }
                         dispatch({ type: AUTHED_USER, payload: payload });
-                        Actions.fetchNodes(dispatch);
+                        // Actions.fetchNodes(dispatch);
                     } else {
                         // Auth check failed
+                        reactCookie.remove('authorization');
+                        reactCookie.remove('email');
                         dispatch({ type: AUTHFAILED_USER, payload: 401 });
                     }
                 },
