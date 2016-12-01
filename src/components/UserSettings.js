@@ -11,7 +11,6 @@ import MainPage from './MainPage'
 class UserSettings extends Component {
 
     signOut() {
-        this.props.navigator.pushPage({component: MainPage})
         this.props.signoutUser();
     }
 
