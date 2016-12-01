@@ -25,7 +25,7 @@ const store = createStore(weatherApp,
     : applyMiddleware(thunk/*, logger */)
 );
 
-import {addLocationAndFetchWeather} from './actions';
+import {addGrowNodeAndFetchWeather} from './actions';
 
 [
   'Tokyo',
@@ -35,7 +35,7 @@ import {addLocationAndFetchWeather} from './actions';
   'Sydney',
   'Rio de Janeiro',
   'Istanbul'
-].forEach((city) => store.dispatch(addLocationAndFetchWeather(city)));
+].forEach((city) => store.dispatch(addGrowNodeAndFetchWeather(city)));
 
 const rootElement = document.getElementById('root');
 

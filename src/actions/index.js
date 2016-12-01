@@ -2,9 +2,9 @@ import {v4 as generateId} from 'node-uuid';
 
 import {queryWeather} from '../api';
 
-export const ADD_LOCATION = 'ADD_LOCATION';
-export const REMOVE_LOCATION = 'REMOVE_LOCATION';
-export const SELECT_LOCATION = 'SELECT_LOCATION';
+export const ADD_GROW_NODE = 'ADD_GROW_NODE';
+export const REMOVE_GROW_NODE = 'REMOVE_GROW_NODE';
+export const SELECT_GROW_NODE = 'SELECT_GROW_NODE';
 
 export const REQUEST_WEATHER = 'REQUEST_WEATHER';
 export const RECEIVE_WEATHER = 'RECEIVE_WEATHER';
@@ -13,19 +13,19 @@ export const SET_FETCH_ERROR = 'SET_FETCH_ERROR';
 export const OPEN_DIALOG = 'OPEN_DIALOG';
 export const CLOSE_DIALOG = 'CLOSE_DIALOG';
 
-export const addLocation = (name) => ({
-  type: ADD_LOCATION,
+export const addGrowNode = (name) => ({
+  type: ADD_GROW_NODE,
   id: generateId(),
   name
 });
 
-export const removeLocation = id => ({
-  type: REMOVE_LOCATION,
+export const removeGrowNode = id => ({
+  type: REMOVE_GROW_NODE,
   id
 });
 
-export const selectLocation = id => ({
-  type: SELECT_LOCATION,
+export const selectGrowNode = id => ({
+  type: SELECT_GROW_NODE,
   id
 });
 
@@ -51,7 +51,7 @@ export const fetchWeather = (id) => {
    * weather data asynchronously.
    */
   return (dispatch, getState) => {
-    const name = getState().locations[id].name;
+    const name = getState().grow_nodes[id].name;
 
     dispatch(requestWeather(id));
     queryWeather(name)
@@ -60,9 +60,9 @@ export const fetchWeather = (id) => {
   };
 };
 
-export const addLocationAndFetchWeather = name => {
+export const addGrowNodeAndFetchWeather = name => {
   return (dispatch, getState) => {
-    const id = dispatch(addLocation(name)).id;
+    const id = dispatch(addGrowNode(name)).id;
     dispatch(fetchWeather(id));
   };
 };

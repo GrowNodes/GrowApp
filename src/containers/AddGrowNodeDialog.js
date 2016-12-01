@@ -10,14 +10,14 @@ import {
 
 import * as Actions from '../actions';
 
-const AddLocationDialog = ({isOpen, actions}) => {
+const AddGrowNodeDialog = ({isOpen, actions}) => {
   let input;
 
   const handleButtonClick = () => {
     const node = findDOMNode(input);
 
     if (node.value.length > 0) {
-      actions.addLocationAndFetchWeather(node.value);
+      actions.addGrowNodeAndFetchWeather(node.value);
       node.value = '';
       actions.closeDialog();
     };
@@ -25,12 +25,12 @@ const AddLocationDialog = ({isOpen, actions}) => {
 
   return (
     <AlertDialog isOpen={isOpen} isCancelable={true} onCancel={actions.closeDialog}>
-			<div className='alert-dialog-title'>Add a location</div>
+			<div className='alert-dialog-title'>Add a grow_node</div>
 			<div className='alert-dialog-content'>
 				<Input
 					modifier='underbar'
 					ref={node => (input = node)}
-					placeholder='Location name' float
+					placeholder='GrowNode name' float
         />
 			</div>
 			<div className='alert-dialog-footer'>
@@ -53,4 +53,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Actions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddLocationDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(AddGrowNodeDialog);

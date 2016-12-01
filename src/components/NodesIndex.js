@@ -5,13 +5,13 @@ import {
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
-import LocationList from '../containers/LocationList';
-import AddLocation from '../containers/AddLocation';
+import GrowNodeList from '../containers/GrowNodeList';
+import AddGrowNode from '../containers/AddGrowNode';
 
 const NodesIndex = ({navigator}) => (
   <Page renderToolbar={() => <NavBar title='Grow Nodes' navigator={navigator} backButton={true}/>}>
-    <LocationList navigator={navigator} />
-    <AddLocation />
+    <GrowNodeList navigator={navigator} />
+    <AddGrowNode />
   </Page>
 );
 

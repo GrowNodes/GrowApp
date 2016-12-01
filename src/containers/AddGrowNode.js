@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {platform} from 'onsenui';
 
 import * as Actions from '../actions';
-import AddLocationDialog from './AddLocationDialog';
+import AddGrowNodeDialog from './AddGrowNodeDialog';
 
 import {
   Fab,
@@ -13,7 +13,7 @@ import {
   Button
 } from 'react-onsenui';
 
-const AddLocation = ({actions}) => {
+const AddGrowNode = ({actions}) => {
   let button;
 
   if (platform.isAndroid()) {
@@ -27,14 +27,14 @@ const AddLocation = ({actions}) => {
     );
   } else {
     button = (
-      <Button onClick={actions.openDialog} modifier='large quiet'>+ ADD LOCATION</Button>
+      <Button onClick={actions.openDialog} modifier='large quiet'>+ ADD GROW_NODE</Button>
     );
   }
 
   return (
     <div>
     {button}
-    <AddLocationDialog />
+    <AddGrowNodeDialog />
     </div>
   );
 };
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   undefined,
   mapDispatchToProps
-)(AddLocation);
+)(AddGrowNode);

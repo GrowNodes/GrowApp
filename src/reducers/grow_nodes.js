@@ -1,6 +1,6 @@
 import {
-  ADD_LOCATION,
-  REMOVE_LOCATION,
+  ADD_GROW_NODE,
+  REMOVE_GROW_NODE,
   REQUEST_WEATHER,
   RECEIVE_WEATHER,
   SET_FETCH_ERROR
@@ -14,9 +14,9 @@ const initialState = {
   humidity: 0
 };
 
-const location = (state = initialState, action) => {
+const grow_node = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_LOCATION:
+    case ADD_GROW_NODE:
       return {
         id: action.id,
         name: action.name,
@@ -46,14 +46,14 @@ const location = (state = initialState, action) => {
   }
 };
 
-const locations = (state = {}, action) => {
+const grow_nodes = (state = {}, action) => {
   switch (action.type) {
-    case ADD_LOCATION:
+    case ADD_GROW_NODE:
       return {
         ...state,
-        [action.id]: location(undefined, action)
+        [action.id]: grow_node(undefined, action)
       };
-    case REMOVE_LOCATION:
+    case REMOVE_GROW_NODE:
       const {...rest} = state;
       delete rest[action.id];
       return rest;
@@ -62,11 +62,11 @@ const locations = (state = {}, action) => {
     case RECEIVE_WEATHER:
       return {
         ...state,
-        [action.id]: location({...state[action.id]}, action)
+        [action.id]: grow_node({...state[action.id]}, action)
       };
     default:
       return state;
   }
 };
 
-export default locations;
+export default grow_nodes;

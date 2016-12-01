@@ -33,7 +33,7 @@ const styles = {
   }
 };
 
-const Location = ({
+const GrowNode = ({
   id,
   name,
   temperature,
@@ -70,7 +70,7 @@ const Location = ({
 
   return (
     <ListItem onClick={() => {
-      actions.selectLocation(id);
+      actions.selectGrowNode(id);
       navigator.pushPage({component: WeatherPage});
     }} tappable>
       <div className='left'>
@@ -95,7 +95,7 @@ const Location = ({
         </div>
         <div onClick={(e) => {
           e.stopPropagation();
-          actions.removeLocation(id);
+          actions.removeGrowNode(id);
         }}>
           <Icon icon='trash' className='weather-button' style={styles.removeButton} />
         </div>
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   undefined,
   mapDispatchToProps
-)(Location);
+)(GrowNode);
