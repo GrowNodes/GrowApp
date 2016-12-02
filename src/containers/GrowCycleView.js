@@ -12,15 +12,14 @@ class GrowCycleView extends Component {
     }
    
   render() {
-    if (this.props.node["$implementation/config"]) {
-        const settings = this.props.node["$implementation/config"].settings
-        const stored_cycle = this.props.grow_cycles[this.props.node.serial] || {}
+    if (this.props.grow_cycle) {
+        const grow_cycle = this.props.grow_cycle
 
         return (
             <div>
-                Grow Cycle ID: {settings.cycle_id}<br/>
-                Start at: {stored_cycle.start_at}<br/>
-                Aborted?: {stored_cycle.aborted ? "true" : "false"}
+                Grow Cycle ID: {grow_cycle.id}<br/>
+                Start at: {grow_cycle.start_at}<br/>
+                Aborted?: {grow_cycle.aborted ? "true" : "false"}
             </div>
         );
     } else {
@@ -31,7 +30,7 @@ class GrowCycleView extends Component {
 
 
 function mapStateToProps (state) {
-    return {grow_cycles: state.grow_cycles}
+    return {grow_cycle: state.grow_cycles[state.selectedUserNode]}
 }
 
 export default connect(mapStateToProps, { fetchGrowCycleIfNeeded })(GrowCycleView);

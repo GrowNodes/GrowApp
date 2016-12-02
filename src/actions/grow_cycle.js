@@ -12,13 +12,13 @@ import {
 
 
 
-export function createGrowCycle(schedule_id, node_id) {
+export function createGrowCycle(schedule_id, node_serial) {
     const start_at = new Date().toISOString()
-    const body = {"grow_cycle": {grow_schedule_id: schedule_id, node_id, start_at}}
-    const request = authedApiRequest('POST', `/nodes/${node_id}/grow_cycles`, JSON.stringify(body));
+    const body = {"grow_cycle": {grow_schedule_id: schedule_id, node_serial, start_at}}
+    const request = authedApiRequest('POST', `/nodes/${node_serial}/grow_cycles`, JSON.stringify(body));
 
     return (dispatch) => {
-        dispatch({ type: GROW_CYCLE_CREATING, node_id});
+        dispatch({ type: GROW_CYCLE_CREATING, node_serial});
         return fetch(request)
             .then((response) => {
                 return response.json();
@@ -34,12 +34,12 @@ export function createGrowCycle(schedule_id, node_id) {
 }
 
 
-export function fetchGrowCycleIfNeeded(node_id) {
-    const request = authedApiRequest('GET', `/nodes/${node_id}/grow_cycles`);
+export function fetchGrowCycleIfNeeded(node_serial) {
+    const request = authedApiRequest('GET', `/nodes/${node_serial}/grow_cycles`);
 
     return (dispatch, getState) => {
-        if (shouldFetchGrowCycle(getState(), node_id)) {
-            dispatch({ type: GROW_CYCLE_FETCHING, node_id });
+        if (shouldFetchGrowCycle(getState(), node_serial)) {
+            dispatch({ type: GROW_CYCLE_FETCHING, node_serial });
             return fetch(request)
                 .then((response) => {
                     return response.json();
@@ -55,9 +55,9 @@ export function fetchGrowCycleIfNeeded(node_id) {
     }
 }
 
-function shouldFetchGrowCycle(state, node_id) {
-    if (state.grow_cycles[node_id]
-        && (state.grow_cycles[node_id].status == "fetched" || state.grow_cycles[node_id].status == "fetching")
+function shouldFetchGrowCycle(state, node_serial) {
+    if (state.grow_cycles[node_serial]
+        && (state.grow_cycles[node_serial].status == "fetched" || state.grow_cycles[node_serial].status == "fetching")
     ) {
         return false
     } else {
