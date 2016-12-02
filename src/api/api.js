@@ -1,7 +1,7 @@
 import reactCookie from 'react-cookie';
 
 
-export const API_SERVER = 'http://192.168.188.174:3000'
+export const API_SERVER = 'http://192.168.188.129:3000'
 export const API_URL = `${API_SERVER}`
 
 export function authedApiRequest(method, path, body) {
