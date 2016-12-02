@@ -1,7 +1,8 @@
 import {
     USER_NODES_FETCHING,
     USER_NODES_FETCHED,
-    USER_NODES_FETCH_FAILED
+    USER_NODES_FETCH_FAILED,
+    SELECT_USER_NODE
 } from './types';
 
 import {authedApiRequest, API_URL} from '../api/api'
@@ -11,6 +12,10 @@ import {API_SERVER} from '../api/api.js';
 
 // import * as Actions from '../../Nodes/actions/nodes_actions'
 
+export const selectUserNode = serial => ({
+  type: SELECT_USER_NODE,
+  serial
+});
 
 export function getUserNodesIfNeeded() {
     return (dispatch, getState) => {
