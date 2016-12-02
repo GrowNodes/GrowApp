@@ -14,7 +14,7 @@ import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD } from './actions/
 import weatherApp from './reducers';
 import App from './containers/App';
 
-import './icons/css/weather-icons.css';
+// import './icons/css/weather-icons.css';
 
 import ons from 'onsenui';
 import 'onsenui/css/onsenui.css';

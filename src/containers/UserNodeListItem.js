@@ -9,7 +9,6 @@ import {platform} from 'onsenui';
 
 import {selectUserNode} from '../actions/user_nodes';
 import NodePage from './NodePage';
-import WeatherIcon from '../components/WeatherIcon';
 
 const styles = {
   weatherIcon: {

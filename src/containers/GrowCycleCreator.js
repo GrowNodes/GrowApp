@@ -4,6 +4,7 @@ import _ from 'lodash'
 import NavBar from '../components/NavBar';
 import {formatGrowCycle} from '../util'
 import {mqttSend} from '../actions/mqtt'
+import Moment from 'moment';
 
 import {
   Page,
@@ -18,13 +19,18 @@ class GrowCycleCreator extends Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 	handleChange(event) {
-		var nextState = _.clone(this.props.grow_cycle)
+
+		console.warn("this will override redux state and fuck redux up.")
+		var nextState = _.cloneDeep(this.props.grow_cycle)
 		nextState.plant_stages[0][event.target.name] = event.target.value
 	    this.setState(nextState);
 	}
 
 	uploadSettings() {
-		this.props.mqttSend(`${this.state.node_serial}/$implementation/config/set`, formatGrowCycle(this.state))
+		var objToPush = this.state
+		objToPush.start_at =  Moment().toISOString()
+		const msgToPush = formatGrowCycle(objToPush)
+		this.props.mqttSend(`${this.state.node_serial}/$implementation/config/set`, msgToPush)
 	}
    
     render () {
