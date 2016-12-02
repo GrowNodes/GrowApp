@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import NavBar from '../components/NavBar';
-// import GrowCycleView from '../../Grow/containers/GrowCycleView';
+import GrowCycleView from './GrowCycleView';
 // import GrowCycleCreator from '../../Grow/containers/GrowCycleCreator';
 import Moment from 'react-moment';
 import TimeAgo from 'react-timeago'
@@ -44,7 +44,7 @@ class NodePage extends Component {
                     System Information<br/>
                 </p>
                 <h2>Grow Cycle</h2>
-                GrowCycleView node={}/
+                <GrowCycleView node={node}/>
                 GrowCycleCreator node_id={this.props.node.serial}/
             </Page>
         );
