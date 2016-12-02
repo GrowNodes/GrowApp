@@ -7,6 +7,10 @@ import thunk from 'redux-thunk';
 // import createLogger from 'redux-logger';
 import {AppContainer} from 'react-hot-loader';
 
+import MqttInstance from './util/Mqtt.js';
+import {mqttIncoming} from './actions/mqtt';
+import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD } from './actions/types.js';
+
 import weatherApp from './reducers';
 import App from './containers/App';
 
@@ -24,6 +28,57 @@ const store = createStore(weatherApp,
     ? applyMiddleware(thunk)
     : applyMiddleware(thunk/*, logger */)
 );
+
+
+
+const sock = {
+  ws: null,
+  URL: 'demo.grownodes.com',
+  wsDipatcher: (topic, message) => {
+    return store.dispatch(mqttIncoming(topic, message));
+  },
+  wsListener: () => {
+    const { lastAction } = store.getState();
+
+    switch (lastAction.type) {
+      case MQTT_SEND_CMD:
+        return sock.ws.sendMessage(lastAction.topic, lastAction.message);
+
+      case MQTT_CONNECT_CMD:
+        return sock.startWS();
+
+      case MQTT_DISCONNECT_CMD:
+        return sock.stopWS();
+
+      default:
+        return;
+    }
+  },
+  stopWS: () => {
+    if (sock.ws) sock.ws.close();
+    sock.ws = null
+  },
+  startWS: () => {
+    if(!!sock.ws) sock.ws.close();
+    const { user_nodes } = store.getState();
+    const serials = Object.keys(user_nodes)
+    sock.ws = new MqttInstance(sock.URL, sock.wsDipatcher, serials)
+  }
+};
+// sock.wsListener();
+store.subscribe(sock.wsListener);
+
+
+
+
+
+
+
+
+
+
+
+
 
 const rootElement = document.getElementById('root');
 

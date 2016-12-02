@@ -10,11 +10,13 @@ import SignInPage from './SignInPage';
 
 import {checkAuthIfNeeded} from '../actions/check_auth';
 import {getUserNodesIfNeeded} from '../actions/user_nodes';
+import {mqttConnect} from '../actions/mqtt';
 
 class App extends Component {
   componentWillMount() {
     this.props.checkAuthIfNeeded()
     .then(() => this.props.getUserNodesIfNeeded())
+    .then(() => this.props.mqttConnect())
     console.log("appwillmount")
   }
 
@@ -46,4 +48,4 @@ function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated, auth_waiting: state.auth.waiting }
 }
 
-export default connect(mapStateToProps, {checkAuthIfNeeded, getUserNodesIfNeeded})(App)
+export default connect(mapStateToProps, {checkAuthIfNeeded, getUserNodesIfNeeded, mqttConnect})(App)
