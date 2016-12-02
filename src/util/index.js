@@ -1,33 +1,39 @@
-// http://openweathermap.org/weather-conditions
+import Moment from 'moment';
 
-const THUNDER = '#b8d74b';
-const RAIN = '#3690f3';
-const SNOW = '#61c9f2';
-const MIST = '#1199c0';
-const CLEAR = '#f7d346';
-const CLOUDS = '#94a8bd';
-const EXTREME = '#ee5850';
+export const formatGrowCycle = (cylce_obj) => {
+    var obj_to_push = _.clone(cylce_obj)
+    
+    for (var i = obj_to_push.plant_stages.length - 1; i >= 0; i--) {
+        var new_stage = {}
+        new_stage.from_rel = obj_to_push.plant_stages[i].from_rel
+        new_stage.to_rel = obj_to_push.plant_stages[i].to_rel
+        new_stage.light_on_at = obj_to_push.plant_stages[i].light_on_at
+        new_stage.light_off_at = obj_to_push.plant_stages[i].light_off_at
+        new_stage.air_temp_high = obj_to_push.plant_stages[i].air_temp_high
+        new_stage.air_temp_low = obj_to_push.plant_stages[i].air_temp_low
+        obj_to_push.plant_stages[i] = new_stage
+    }
 
-export const weatherCodeToColor = (code) => {
-  if (code < 0) {
-    return CLOUDS;
-  } else if (code >= 200 && code < 300) {
-    return THUNDER;
-  } else if (code >= 300 && code < 400) {
-    return RAIN;
-  } else if (code >= 500 && code < 600) {
-    return RAIN;
-  } else if (code >= 600 && code < 700) {
-    return SNOW;
-  } else if (code >= 700 && code < 800) {
-    return MIST;
-  } else if (code === 800) {
-    return CLEAR;
-  } else if (code >= 801 && code < 810) {
-    return CLOUDS;
-  } else if (code >= 900 && code < 903) {
-    return EXTREME;
-  } else {
-    return CLEAR;
-  }
-};
+    obj_to_push.plant_stages = JSON.stringify(obj_to_push.plant_stages)
+    obj_to_push.start_at = Moment(obj_to_push.start_at).unix()
+    obj_to_push.cycle_id = obj_to_push.id
+    delete obj_to_push.id
+    delete obj_to_push.status
+    obj_to_push = {settings: obj_to_push}
+
+    const text_to_push = JSON.stringify(obj_to_push)
+    return text_to_push 
+}
+
+export const growCycleGetCurrentStage = (grow_cycle) => {
+        for (var i = 0; i < grow_cycle.plant_stages.length; i++) {
+            const stage = grow_cycle.plant_stages[i]
+            
+            const from_abs = stage.from_rel + Moment(grow_cycle.start_at).unix()
+            const to_abs = stage.to_rel + Moment(grow_cycle.start_at).unix()
+            
+            if (from_abs >= Moment().unix() < to_abs ) {
+                return stage
+            }
+        }
+    }
