@@ -49,6 +49,7 @@ export default function(state = INITIAL_STATE, action) {
             }
         
         case "grow_light/on":
+        case "fan/on":
             var message = action.payload.message == "true" ? true : false
             var serial = action.payload.serial
             return {
