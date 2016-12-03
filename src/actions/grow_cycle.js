@@ -12,24 +12,32 @@ import {
 
 
 
-export function createGrowCycle(schedule_id, node_serial) {
-    const start_at = new Date().toISOString()
-    const body = {"grow_cycle": {grow_schedule_id: schedule_id, node_serial, start_at}}
+export function createGrowCycle(growCycleObj, node_serial) {
+    const body = {"grow_cycle_obj": growCycleObj}
     const request = authedApiRequest('POST', `/nodes/${node_serial}/grow_cycles`, JSON.stringify(body));
 
     return (dispatch) => {
         dispatch({ type: GROW_CYCLE_CREATING, node_serial});
-        return fetch(request)
+        return (
+            fetch(request)
             .then((response) => {
                 return response.json();
             })
             .then(
                 (result) => {
-                    dispatch({ type: GROW_CYCLE_CREATED, payload: result })
+                    if (result.status == 201) {
+                        dispatch({ type: GROW_CYCLE_CREATED, payload: result })
+                    } else {
+                        dispatch({ type: GROW_CYCLE_CREATE_FAILED, payload: result.error })
+                    }
                     return result
                 },
-                (error) => dispatch({ type: GROW_CYCLE_CREATE_FAILED, error })
-            );
+                (error) => {
+                    dispatch({ type: GROW_CYCLE_CREATE_FAILED, error })
+                    return error
+                }
+            )
+        )
     }
 }
 

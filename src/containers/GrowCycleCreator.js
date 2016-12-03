@@ -4,7 +4,9 @@ import _ from 'lodash'
 import NavBar from '../components/NavBar';
 import {formatGrowCycle} from '../util'
 import {mqttSend} from '../actions/mqtt'
+import {createGrowCycle} from '../actions/grow_cycle'
 import Moment from 'moment';
+import ons from 'onsenui';
 
 import {
   Page,
@@ -27,10 +29,26 @@ class GrowCycleCreator extends Component {
 	}
 
 	uploadSettings() {
-		var objToPush = this.state
+		const that = this
+		var objToPush = that.state
 		objToPush.start_at =  Moment().toISOString()
 		const msgToPush = formatGrowCycle(objToPush)
-		this.props.mqttSend(`${this.state.node_serial}/$implementation/config/set`, msgToPush)
+		that.props.createGrowCycle(objToPush, that.state.node_serial)
+		.then(
+			(result) => {
+				if(result.error) {
+					ons.notification.alert(result.error, {title: "Couldn't save new grow cycle"})
+					return false
+				}
+
+				that.props.mqttSend(`${that.state.node_serial}/$implementation/config/set`, msgToPush)
+				return true
+			},
+			(error) => {
+				ons.notification.alert(error, {title: "Couldn't save new grow cycle"})
+				return false
+			}
+		)
 	}
    
     render () {
@@ -60,4 +78,4 @@ function mapStateToProps (state) {
     return { grow_cycle: state.grow_cycles[state.selectedUserNode]}
 }
 
-export default connect(mapStateToProps, {mqttSend})(GrowCycleCreator);
+export default connect(mapStateToProps, {mqttSend, createGrowCycle})(GrowCycleCreator);
