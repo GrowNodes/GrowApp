@@ -43,6 +43,11 @@ class NodePage extends Component {
                 <p>
                     System Information<br/>
                 </p>
+                <h2>Connected Devices</h2>
+                <p>
+                    Temperature: {node["temperature/degrees"]} &deg;F<br/>
+                    Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
+                </p>
                 <h2>Grow Cycle</h2>
                 <GrowCycleView node={node}/>
                 <Button onClick={() => {this.props.navigator.pushPage({component: GrowCycleCreator})}}>Load a new grow cycle</Button>

@@ -34,6 +34,8 @@ export default function(state = INITIAL_STATE, action) {
         case "$fw/checksum":
         case "$implementation/ota/enabled":
         case "$stats/signal":
+
+        case "temperature/degrees":
             var message = action.payload.message
             var serial = action.payload.serial
             return {
@@ -45,6 +47,22 @@ export default function(state = INITIAL_STATE, action) {
                     last_seen: Math.floor((new Date).getTime() / 1000)
                 }
             }
+        
+        case "grow_light/on":
+            var message = action.payload.message == "true" ? true : false
+            var serial = action.payload.serial
+            return {
+                ...state,
+                [serial]: {
+                    ...state[serial],
+                    serial: serial,
+                    [action.type]: message,
+                    last_seen: Math.floor((new Date).getTime() / 1000)
+                }
+            }
+
+
+
         case "$implementation/config":
             var message = JSON.parse(action.payload.message)
             var serial = action.payload.serial
