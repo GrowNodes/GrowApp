@@ -7,21 +7,23 @@ import {
 
 import MainPage from '../components//MainPage';
 import SignInPage from './SignInPage';
+import Base from '../util/Base'
 
-import {checkAuthIfNeeded} from '../actions/check_auth';
 import {getUserNodesIfNeeded} from '../actions/user_nodes';
 import {mqttConnect} from '../actions/mqtt';
 
 class App extends Component {
   componentWillMount() {
-    this.props.checkAuthIfNeeded()
-    .then(() => this.props.getUserNodesIfNeeded())
-    .then(() => this.props.mqttConnect())
-    console.log("appwillmount")
+    Base.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log("getting user nodes and connecting to mqtt", user)
+            this.props.getUserNodesIfNeeded(this).then(() => this.props.mqttConnect())
+        }
+    })
   }
 
   renderPage(route, navigator) {
-    if (!this.props.authenticated) {
+    if (!Base.auth().currentUser) {
         return <SignInPage key={route.key} navigator={navigator} />
     } else {
       return <route.component key={route.key} navigator={navigator} />
@@ -29,17 +31,12 @@ class App extends Component {
   }
 
   render() {
-
-    if (this.props.auth_waiting) {
-      return <div>splash screen here</div>
-    } else {
       return (
         <Navigator
           renderPage={this.renderPage.bind(this)}
           initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
         />
       );
-    }
   }
 }
 
@@ -48,4 +45,4 @@ function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated, auth_waiting: state.auth.waiting }
 }
 
-export default connect(mapStateToProps, {checkAuthIfNeeded, getUserNodesIfNeeded, mqttConnect})(App)
+export default connect(mapStateToProps, {getUserNodesIfNeeded, mqttConnect})(App)

@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Moment from 'moment';
-import _ from 'lodash'
-import { fetchGrowCycleIfNeeded } from '../actions/grow_cycle';
 import {growCycleGetCurrentStage} from '../util'
 
+import Base from '../util/Base'
 
 class GrowCycleView extends Component {
-
+  constructor(props){
+    super(props);
+    this.state = {
+      grow_cycle: {}
+    };
+  }
     componentWillMount() {
-        this.props.fetchGrowCycleIfNeeded(this.props.node.serial)
+        Base.bindToState(`grow_nodes/${this.props.selected_user_node}/grow_cycle`, {
+          context: this,
+          state: 'grow_cycle',
+          asArray: false
+        });
     }
   
   render() {
-    if (this.props.grow_cycle) {
-        const grow_cycle = this.props.grow_cycle
-        console.log(grow_cycle.plant_stages)
+        const grow_cycle = this.state.grow_cycle
         return (
             <div>
                 <p>
-                Grow Cycle ID: {grow_cycle.id}<br/>
                 Start at: {grow_cycle.start_at}<br/>
                 Aborted?: {grow_cycle.aborted ? "true" : "false"}
                 </p>
@@ -37,15 +41,12 @@ class GrowCycleView extends Component {
                 })}
             </div>
         );
-    } else {
-        return <div>Loading...</div>;
-    }
   }
 }
 
 
 function mapStateToProps (state) {
-    return {grow_cycle: state.grow_cycles[state.selectedUserNode]}
+    return {selected_user_node: state.selectedUserNode}
 }
 
-export default connect(mapStateToProps, { fetchGrowCycleIfNeeded })(GrowCycleView);
+export default connect(mapStateToProps, null)(GrowCycleView);
