@@ -1,5 +1,3 @@
-import reactCookie from 'react-cookie';
-
 import {
     AUTHED_USER,
     AUTHFAILED_USER,
