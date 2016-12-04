@@ -42,33 +42,33 @@ export function createGrowCycle(growCycleObj, node_serial) {
 }
 
 
-export function fetchGrowCycleIfNeeded(node_serial) {
-    const request = authedApiRequest('GET', `/nodes/${node_serial}/grow_cycles`);
+// export function fetchGrowCycleIfNeeded(node_serial) {
+//     const request = authedApiRequest('GET', `/nodes/${node_serial}/grow_cycles`);
 
-    return (dispatch, getState) => {
-        if (shouldFetchGrowCycle(getState(), node_serial)) {
-            dispatch({ type: GROW_CYCLE_FETCHING, node_serial });
-            return fetch(request)
-                .then((response) => {
-                    return response.json();
-                })
-                .then(
-                    (result) => {
-                        dispatch({ type: GROW_CYCLE_FETCHED, payload: result })
-                        return result
-                    },
-                    (error) => dispatch({ type: GROW_CYCLE_FETCH_FAILED, error })
-                );
-        }
-    }
-}
+//     return (dispatch, getState) => {
+//         if (shouldFetchGrowCycle(getState(), node_serial)) {
+//             dispatch({ type: GROW_CYCLE_FETCHING, node_serial });
+//             return fetch(request)
+//                 .then((response) => {
+//                     return response.json();
+//                 })
+//                 .then(
+//                     (result) => {
+//                         dispatch({ type: GROW_CYCLE_FETCHED, payload: result })
+//                         return result
+//                     },
+//                     (error) => dispatch({ type: GROW_CYCLE_FETCH_FAILED, error })
+//                 );
+//         }
+//     }
+// }
 
-function shouldFetchGrowCycle(state, node_serial) {
-    if (state.grow_cycles[node_serial]
-        && (state.grow_cycles[node_serial].status == "fetched" || state.grow_cycles[node_serial].status == "fetching")
-    ) {
-        return false
-    } else {
-        return true
-    }
-}
+// function shouldFetchGrowCycle(state, node_serial) {
+//     if (state.grow_cycles[node_serial]
+//         && (state.grow_cycles[node_serial].status == "fetched" || state.grow_cycles[node_serial].status == "fetching")
+//     ) {
+//         return false
+//     } else {
+//         return true
+//     }
+// }
