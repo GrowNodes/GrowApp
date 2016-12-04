@@ -1,7 +1,7 @@
 import Moment from 'moment';
 
 export const formatGrowCycle = (cylce_obj) => {
-    var obj_to_push = _.clone(cylce_obj)
+    var obj_to_push = _.cloneDeep(cylce_obj)
     
     for (var i = obj_to_push.plant_stages.length - 1; i >= 0; i--) {
         var new_stage = {}

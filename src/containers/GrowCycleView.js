@@ -22,8 +22,6 @@ class GrowCycleView extends Component {
     }
   
   render() {
-    console.log(this.state.grow_cycle)
-    if (true) {
         const grow_cycle = this.state.grow_cycle
         return (
             <div>
@@ -45,9 +43,6 @@ class GrowCycleView extends Component {
                 })}
             </div>
         );
-    } else {
-        return <div>Loading...</div>;
-    }
   }
 }
 
