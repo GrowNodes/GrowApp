@@ -4,10 +4,6 @@ import {
 } from './types';
 import Base from '../util/Base'
 
-import {API_SERVER} from '../api/api.js';
-import reactCookie from 'react-cookie';
-
-
 export function signinUser({email, password}) {
     console.log(email, password);
 

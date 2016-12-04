@@ -1,11 +1,9 @@
 import reactCookie from 'react-cookie';
 
 import {
-    AUTHING_USER,
     AUTHED_USER,
     AUTHFAILED_USER,
     UNAUTH_USER,
-    SET_REDIRECT_ON_AUTH,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -23,18 +21,11 @@ export default function(state = INITIAL_STATE, action) {
                 authenticated: true
             }
 
+        case AUTHFAILED_USER:
         case UNAUTH_USER:
             return {
                 ...state,
                 error: null,
-                authenticated: false
-            }
-
-        case AUTHFAILED_USER:
-            reactCookie.remove('authorization');
-            return {
-                ...state,
-                error: action.payload,
                 authenticated: false
             }
     }
