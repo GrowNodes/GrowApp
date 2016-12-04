@@ -15,7 +15,7 @@ import {mqttConnect} from '../actions/mqtt';
 class App extends Component {
   componentWillMount() {
     this.props.checkAuthIfNeeded()
-    .then(() => this.props.getUserNodesIfNeeded())
+    .then(() => this.props.getUserNodesIfNeeded(this))
     .then(() => this.props.mqttConnect())
     console.log("appwillmount")
   }

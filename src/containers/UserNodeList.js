@@ -1,25 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import {List} from 'react-onsenui';
 
 import UserNodeListItem from './UserNodeListItem';
+import Base from '../util/Base'
 
-const UserNodeList = ({user_nodes, navigator}) => (
-  <List
-    dataSource={Object.keys(user_nodes).map((key) => user_nodes[key])}
-    renderRow={(user_node) =>
-      <UserNodeListItem
-        key={user_node.serial}
-        navigator={navigator}
-        {...user_node}
+class UserNodeList extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      user_nodes: []
+    };
+  }
+
+  componentWillMount() {
+    Base.bindToState('grow_nodes', {
+      context: this,
+      state: 'user_nodes',
+      asArray: true
+    });
+  }
+
+  render() {
+    return (
+      <List
+        dataSource={this.state.user_nodes}
+        renderRow={(user_node) =>
+          <UserNodeListItem
+            key={user_node.serial}
+            navigator={this.props.navigator}
+            {...user_node}
+          />
+        }
       />
-    }
-  />
-);
+    )
+  }
+};
 
-const mapStateToProps = (state) => ({
-  user_nodes: state.user_nodes
-});
-
-export default connect(mapStateToProps)(UserNodeList);
+export default UserNodeList;

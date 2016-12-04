@@ -9,7 +9,7 @@ export default function(state = INITIAL_STATE, action) {
         default:
             return state;
         case TYPES.USER_NODES_FETCHED:
-            return action.payload
+            return action.data
 
         case TYPES.MQTT_CONNECT:
         console.log("mqtt connect dispatch");

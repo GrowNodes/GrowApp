@@ -9,6 +9,7 @@ import {authedApiRequest, API_URL} from '../api/api'
 
 import reactCookie from 'react-cookie';
 import {API_SERVER} from '../api/api.js';
+import Base from '../util/Base'
 
 // import * as Actions from '../../Nodes/actions/nodes_actions'
 
@@ -17,10 +18,10 @@ export const selectUserNode = serial => ({
   serial
 });
 
-export function getUserNodesIfNeeded() {
+export function getUserNodesIfNeeded(ctx) {
     return (dispatch, getState) => {
         if (shouldGetUserNodes(getState())) {
-            return dispatch(getUserNodes());
+            return dispatch(getUserNodes(ctx));
         }
         return Promise.resolve();
     }
@@ -35,24 +36,19 @@ function shouldGetUserNodes(state) {
 }
 
 
-function getUserNodes() {
-    const request = authedApiRequest('GET', '/nodes');
-
+function getUserNodes(ctx) {
     return (dispatch) => {
         dispatch({ type: USER_NODES_FETCHING });
-        return fetch(request)
-            .then((response) => {
-                return response.json();
-            })
-            .then(
-                (result) => {
-                    var payload = {}
-                    for (var i = result.length - 1; i >= 0; i--) {
-                        payload[result[i]] = {}
-                    }
-                    dispatch({ type: USER_NODES_FETCHED, payload })
-                },
-                (error) => dispatch({ type: USER_NODES_FETCH_FAILED, error })
-            );
+
+        return Base.fetch('grow_nodes', {
+            context: ctx,
+            asArray: false,
+        }).then(data => {
+            console.log(data);
+            dispatch({ type: USER_NODES_FETCHED, data })
+        }).catch(error => {
+            console.log(error);
+            dispatch({ type: USER_NODES_FETCH_FAILED, error })
+        })
     }
 }

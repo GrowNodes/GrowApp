@@ -15,7 +15,6 @@ class GrowCycleView extends Component {
   render() {
     if (this.props.grow_cycle) {
         const grow_cycle = this.props.grow_cycle
-        console.log(grow_cycle.plant_stages)
         return (
             <div>
                 <p>
