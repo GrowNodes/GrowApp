@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
+import uuid from 'uuid'
 import {
   Navigator
 } from 'react-onsenui';
@@ -23,11 +23,10 @@ class App extends Component {
   }
 
   renderPage(route, navigator) {
-    console.log(route)
     if (!Base.auth().currentUser) {
-        return <SignInPage key={route.component} navigator={navigator} />
+        return <SignInPage key={uuid.v4()} navigator={navigator} />
     } else {
-      return <route.component key={route.component} navigator={navigator} />
+      return <route.component key={uuid.v4()} navigator={navigator} />
     }
   }
 
