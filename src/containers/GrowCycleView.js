@@ -7,9 +7,7 @@ import Base from '../util/Base'
 class GrowCycleView extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      grow_cycle: {}
-    };
+    this.state = {};
   }
     componentWillMount() {
         Base.bindToState(`grow_nodes/${this.props.selected_user_node}/grow_cycle`, {
@@ -21,6 +19,9 @@ class GrowCycleView extends Component {
   
   render() {
         const grow_cycle = this.state.grow_cycle
+        if (!grow_cycle) {
+            return <div>Loading grow cycle...</div>
+        }
         return (
             <div>
                 <p>

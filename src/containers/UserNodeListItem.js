@@ -11,7 +11,7 @@ import {selectUserNode} from '../actions/user_nodes';
 import NodePage from './NodePage';
 
 const styles = {
-  weatherIcon: {
+  onlineIcon: {
     color: '#fff',
     textAlign: 'center',
     width: platform.isAndroid() ? '36px' : '30px',
@@ -30,7 +30,7 @@ class UserNodeListItem extends Component {
         this.props.navigator.pushPage({component: NodePage});
       }} tappable>
         <div className='left'>
-          <div style={{...styles.weatherIcon, backgroundColor: this.props["$online"] == "true" ? 'green' : 'red'}}>
+          <div style={{...styles.onlineIcon, backgroundColor: this.props["$online"] == "true" ? 'green' : 'red'}}>
           </div>
         </div>
         <div className='center'>

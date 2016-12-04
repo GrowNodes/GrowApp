@@ -23,10 +23,11 @@ class App extends Component {
   }
 
   renderPage(route, navigator) {
+    console.log(route)
     if (!Base.auth().currentUser) {
-        return <SignInPage key={route.key} navigator={navigator} />
+        return <SignInPage key={route.component} navigator={navigator} />
     } else {
-      return <route.component key={route.key} navigator={navigator} />
+      return <route.component key={route.component} navigator={navigator} />
     }
   }
 

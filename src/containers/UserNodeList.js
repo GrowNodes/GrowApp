@@ -4,29 +4,12 @@ import {connect} from 'react-redux';
 import {List} from 'react-onsenui';
 
 import UserNodeListItem from './UserNodeListItem';
-import Base from '../util/Base'
 
 class UserNodeList extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      user_nodes: []
-    };
-  }
-
-  componentWillMount() {
-    Base.bindToState('grow_nodes', {
-      context: this,
-      state: 'user_nodes',
-      asArray: true
-    });
-  }
-
   render() {
     return (
       <List
-        dataSource={this.state.user_nodes}
+        dataSource={Object.keys(this.props.user_nodes).map((key) => this.props.user_nodes[key])}
         renderRow={(user_node) =>
           <UserNodeListItem
             key={user_node.serial}
@@ -39,4 +22,9 @@ class UserNodeList extends Component {
   }
 };
 
-export default UserNodeList;
+
+const mapStateToProps = (state) => ({
+  user_nodes: state.user_nodes
+});
+
+export default connect(mapStateToProps)(UserNodeList);
