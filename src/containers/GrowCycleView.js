@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Moment from 'moment';
-import _ from 'lodash'
 import {growCycleGetCurrentStage} from '../util'
 
 import Base from '../util/Base'

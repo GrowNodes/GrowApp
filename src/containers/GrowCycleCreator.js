@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Base from '../util/Base'
 
@@ -7,7 +7,6 @@ import NavBar from '../components/NavBar';
 import {formatGrowCycle} from '../util'
 import {mqttSend} from '../actions/mqtt'
 import {createGrowCycle} from '../actions/grow_cycle'
-import Moment from 'moment';
 import ons from 'onsenui';
 
 import {

@@ -5,10 +5,6 @@ import {
     SELECT_USER_NODE
 } from './types';
 
-import {authedApiRequest, API_URL} from '../api/api'
-
-import reactCookie from 'react-cookie';
-import {API_SERVER} from '../api/api.js';
 import Base from '../util/Base'
 
 // import * as Actions from '../../Nodes/actions/nodes_actions'
