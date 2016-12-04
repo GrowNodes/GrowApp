@@ -9,6 +9,7 @@ import {AppContainer} from 'react-hot-loader';
 
 import MqttInstance from './util/Mqtt.js';
 import {mqttIncoming} from './actions/mqtt';
+import {bindAuthState} from './actions/bind_auth'
 import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD } from './actions/types.js';
 
 import weatherApp from './reducers';
@@ -71,7 +72,7 @@ store.subscribe(sock.wsListener);
 
 
 
-
+store.dispatch(bindAuthState());
 
 
 

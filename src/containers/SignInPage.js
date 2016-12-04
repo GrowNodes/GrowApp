@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import SignInForm from './sign_in_form.js'
-import {signinUser} from '../actions/sign_in'
 import MainPage from '../components/MainPage';
-
+import {signinUser} from '../actions/sign_in'
+import _ from 'lodash'
 import ons from 'onsenui';
 
 import {
@@ -14,7 +14,7 @@ class SignInPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.navigator = props.navigator
-	}  
+	}
 
 
 
@@ -24,16 +24,10 @@ class SignInPage extends React.Component {
     let that = this
     
     this.props.signinUser(values)
-    .then(() => {
-      	console.log(that.props.auth.authenticated)
-      if (that.props.auth.authenticated) {
-        // @todo this never gets called
-      	that.props.navigator.pushPage({component: MainPage})
-      } else if (that.props.auth.error) {
-      	ons.notification.alert(that.props.auth.error, {title: "Couldn't Sign In"})
-      }
-    })
+
   }
+
+
   render() {
     return (
       <SignInForm onSubmit={this.handleSubmit.bind(this)} />
