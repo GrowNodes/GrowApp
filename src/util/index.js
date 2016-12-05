@@ -5,17 +5,17 @@ export const formatGrowCycle = (cylce_obj) => {
     
     for (var i = obj_to_push.plant_stages.length - 1; i >= 0; i--) {
         var new_stage = {}
-        new_stage.from_rel = obj_to_push.plant_stages[i].from_rel
-        new_stage.to_rel = obj_to_push.plant_stages[i].to_rel
-        new_stage.light_on_at = obj_to_push.plant_stages[i].light_on_at
-        new_stage.light_off_at = obj_to_push.plant_stages[i].light_off_at
-        new_stage.air_temp_high = obj_to_push.plant_stages[i].air_temp_high
-        new_stage.air_temp_low = obj_to_push.plant_stages[i].air_temp_low
+        new_stage.from_rel = parseInt(obj_to_push.plant_stages[i].from_rel)
+        new_stage.to_rel = parseInt(obj_to_push.plant_stages[i].to_rel)
+        new_stage.light_on_at = parseInt(obj_to_push.plant_stages[i].light_on_at)
+        new_stage.light_off_at = parseInt(obj_to_push.plant_stages[i].light_off_at)
+        new_stage.air_temp_high = parseInt(obj_to_push.plant_stages[i].air_temp_high)
+        new_stage.air_temp_low = parseInt(obj_to_push.plant_stages[i].air_temp_low)
         obj_to_push.plant_stages[i] = new_stage
     }
 
     obj_to_push.plant_stages = JSON.stringify(obj_to_push.plant_stages)
-    obj_to_push.start_at = Moment(obj_to_push.start_at).unix()
+    obj_to_push.start_at = obj_to_push.start_at
     obj_to_push.cycle_id = obj_to_push.id
     delete obj_to_push.id
     delete obj_to_push.status

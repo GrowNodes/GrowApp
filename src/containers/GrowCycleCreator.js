@@ -62,7 +62,7 @@ class GrowCycleCreator extends Component {
 					return false
 				}
 
-				that.props.mqttSend(`${that.state.node_serial}/$implementation/config/set`, msgToPush)
+				that.props.mqttSend(`${that.props.selected_user_node}/$implementation/config/set`, msgToPush)
 				return true
 			},
 			(error) => {
