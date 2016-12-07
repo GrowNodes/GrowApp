@@ -28,18 +28,12 @@ class NodeSettingsView extends Component {
                 Start at: {node_settings.start_at}<br/>
                 Aborted?: {node_settings.aborted ? "true" : "false"}
                 </p>
-                <h3>Stages</h3>
-                Currently in {nodeSettingsGetCurrentStage(node_settings).name} stage
-                {node_settings.plant_stages.map(function(stage, index){
-                    return (
-                        <p key={ index }>
-                            <strong>{stage.name} stage</strong><br/>
-                            Lights ON at {stage.light_on_at} and OFF at {stage.light_off_at}<br/>
-                            Air temp- max {stage.air_temp_high}, min {stage.air_temp_low}<br/>
-                            Water temp- max {stage.water_temp_high}, min {stage.water_temp_low}<br/>
-                        </p>
-                    )
-                })}
+                <h3>Currently in {node_settings.stage_name} stage</h3>
+                <p>
+                    Lights ON at {node_settings.light_on_at} and OFF at {node_settings.light_off_at}<br/>
+                    Air temp- max {node_settings.air_temp_high}, min {node_settings.air_temp_low}<br/>
+                    Water temp- max {node_settings.water_temp_high}, min {node_settings.water_temp_low}<br/>
+                </p>
             </div>
         );
   }
