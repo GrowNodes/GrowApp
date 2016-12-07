@@ -8,7 +8,7 @@ import {formatNodeSettings} from '../util'
 import {mqttSend} from '../actions/mqtt'
 import {createNodeSettings} from '../actions/node_settings'
 import ons from 'onsenui';
-
+import uuid from 'uuid';
 import {
   Page,
   Button
@@ -46,7 +46,8 @@ class NodeSettingsCreator extends Component {
 
 	handleChange(event) {
 		var objToReturn = _.cloneDeep(this.state.node_settings)
-		objToReturn.plant_stages[0][event.target.name] = event.target.value
+		objToReturn[event.target.name] = event.target.value
+		objToReturn.settings_id = uuid.v4()
 	    this.setState({...this.state, node_settings: objToReturn});
 	}
 
@@ -73,17 +74,17 @@ class NodeSettingsCreator extends Component {
 	}
 
 	renderForm() {
-		if (this.state.node_settings.plant_stages) {
-	    	const plantStage0 = this.state.node_settings.plant_stages[0]
+		if (this.state.node_settings) {
+	    	const node_settings = this.state.node_settings
             return(
             	<div>
 	                <p>JSON</p>
 	            	<pre>{formatNodeSettings(this.state.node_settings)}</pre>
 	                <br/><br/><br/>
-					light_on_at: <input type="text" className="text-input--underbar" name="light_on_at" value={plantStage0["light_on_at"]} onChange={this.handleChange} placeholder="light_on_at" /><br/><br/>
-					light_off_at: <input type="text" className="text-input--underbar" name="light_off_at" value={plantStage0["light_off_at"]} onChange={this.handleChange} placeholder="light_off_at" /><br/><br/>
-					air_temp_high: <input type="text" className="text-input--underbar" name="air_temp_high" value={plantStage0["air_temp_high"]} onChange={this.handleChange} placeholder="air_temp_high" /><br/><br/>
-					air_temp_low: <input type="text" className="text-input--underbar" name="air_temp_low" value={plantStage0["air_temp_low"]} onChange={this.handleChange} placeholder="air_temp_low" /><br/><br/>
+					light_on_at: <input type="text" className="text-input--underbar" name="light_on_at" value={node_settings["light_on_at"]} onChange={this.handleChange} placeholder="light_on_at" /><br/><br/>
+					light_off_at: <input type="text" className="text-input--underbar" name="light_off_at" value={node_settings["light_off_at"]} onChange={this.handleChange} placeholder="light_off_at" /><br/><br/>
+					air_temp_high: <input type="text" className="text-input--underbar" name="air_temp_high" value={node_settings["air_temp_high"]} onChange={this.handleChange} placeholder="air_temp_high" /><br/><br/>
+					air_temp_low: <input type="text" className="text-input--underbar" name="air_temp_low" value={node_settings["air_temp_low"]} onChange={this.handleChange} placeholder="air_temp_low" /><br/><br/>
 	            
 		            <Button modifier="large" onClick={this.uploadSettings.bind(this)}>Upload to Grow Node</Button>
             	</div>
