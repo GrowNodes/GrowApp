@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import NavBar from '../components/NavBar';
-import GrowCycleView from './GrowCycleView';
-import GrowCycleCreator from './GrowCycleCreator';
+import NodeSettingsView from './NodeSettingsView';
+import NodeSettingsCreator from './NodeSettingsCreator';
 import Moment from 'react-moment';
 import TimeAgo from 'react-timeago'
 
@@ -49,9 +49,9 @@ class NodePage extends Component {
                     Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
                     Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                 </p>
-                <h2>Grow Cycle</h2>
-                <GrowCycleView node={node}/>
-                <Button onClick={() => {this.props.navigator.pushPage({component: GrowCycleCreator})}}>Load a new grow cycle</Button>
+                <h2>Node Settings</h2>
+                <NodeSettingsView node={node}/>
+                <Button onClick={() => {this.props.navigator.pushPage({component: NodeSettingsCreator})}}>Load a new Node Settings</Button>
             </Page>
         );
     }

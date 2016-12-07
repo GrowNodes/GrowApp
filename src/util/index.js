@@ -1,6 +1,6 @@
 import Moment from 'moment';
 
-export const formatGrowCycle = (cylce_obj) => {
+export const formatNodeSettings = (cylce_obj) => {
     var obj_to_push = _.cloneDeep(cylce_obj)
     
     for (var i = obj_to_push.plant_stages.length - 1; i >= 0; i--) {
@@ -25,12 +25,12 @@ export const formatGrowCycle = (cylce_obj) => {
     return text_to_push 
 }
 
-export const growCycleGetCurrentStage = (grow_cycle) => {
-        for (var i = 0; i < grow_cycle.plant_stages.length; i++) {
-            const stage = grow_cycle.plant_stages[i]
+export const nodeSettingsGetCurrentStage = (node_settings) => {
+        for (var i = 0; i < node_settings.plant_stages.length; i++) {
+            const stage = node_settings.plant_stages[i]
             
-            const from_abs = stage.from_rel + Moment(grow_cycle.start_at).unix()
-            const to_abs = stage.to_rel + Moment(grow_cycle.start_at).unix()
+            const from_abs = stage.from_rel + Moment(node_settings.start_at).unix()
+            const to_abs = stage.to_rel + Moment(node_settings.start_at).unix()
             
             if (from_abs >= Moment().unix() < to_abs ) {
                 return stage

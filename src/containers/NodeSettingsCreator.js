@@ -4,9 +4,9 @@ import Base from '../util/Base'
 
 import _ from 'lodash'
 import NavBar from '../components/NavBar';
-import {formatGrowCycle} from '../util'
+import {formatNodeSettings} from '../util'
 import {mqttSend} from '../actions/mqtt'
-import {createGrowCycle} from '../actions/grow_cycle'
+import {createNodeSettings} from '../actions/node_settings'
 import ons from 'onsenui';
 
 import {
@@ -14,28 +14,28 @@ import {
   Button
 } from 'react-onsenui';
 
-class GrowCycleCreator extends Component {
+class NodeSettingsCreator extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this)
 		this.state = {
-			grow_cycle: {}
+			node_settings: {}
 		}
 	}
 
 
     componentWillMount() {
-        // Base.bindToState(`grow_nodes/${this.props.selected_user_node}/grow_cycle/plant_stages`, {
+        // Base.bindToState(`grow_nodes/${this.props.selected_user_node}/settings/plant_stages`, {
         //   context: this,
         //   state: 'plant_stages',
         //   asArray: true
         // });
-        Base.listenTo(`grow_nodes/${this.props.selected_user_node}/grow_cycle`, {
+        Base.listenTo(`grow_nodes/${this.props.selected_user_node}/settings`, {
           context: this,
           asArray: false,
-          then: (grow_cycle) => {
-          	this.setState({...this.state, grow_cycle})
-          	console.log(grow_cycle)
+          then: (node_settings) => {
+          	this.setState({...this.state, node_settings})
+          	console.log(node_settings)
           },
           onFailure: () => {
           	console.log("failed");
@@ -45,20 +45,20 @@ class GrowCycleCreator extends Component {
 
 
 	handleChange(event) {
-		var objToReturn = _.cloneDeep(this.state.grow_cycle)
+		var objToReturn = _.cloneDeep(this.state.node_settings)
 		objToReturn.plant_stages[0][event.target.name] = event.target.value
-	    this.setState({...this.state, grow_cycle: objToReturn});
+	    this.setState({...this.state, node_settings: objToReturn});
 	}
 
 	uploadSettings() {
 		const that = this
-		var objToPush = this.state.grow_cycle
-		const msgToPush = formatGrowCycle(objToPush)
-		this.props.createGrowCycle(objToPush, this.props.selected_user_node)
+		var objToPush = this.state.node_settings
+		const msgToPush = formatNodeSettings(objToPush)
+		this.props.createNodeSettings(objToPush, this.props.selected_user_node)
 		.then(
 			(result) => {
 				if(result.error) {
-					ons.notification.alert(result.error, {title: "Couldn't save new grow cycle"})
+					ons.notification.alert(result.error, {title: "Couldn't save new Node Settings"})
 					return false
 				}
 
@@ -66,19 +66,19 @@ class GrowCycleCreator extends Component {
 				return true
 			},
 			(error) => {
-				ons.notification.alert(error, {title: "Couldn't save new grow cycle"})
+				ons.notification.alert(error, {title: "Couldn't save new Node Settings"})
 				return false
 			}
 		)
 	}
 
 	renderForm() {
-		if (this.state.grow_cycle.plant_stages) {
-	    	const plantStage0 = this.state.grow_cycle.plant_stages[0]
+		if (this.state.node_settings.plant_stages) {
+	    	const plantStage0 = this.state.node_settings.plant_stages[0]
             return(
             	<div>
 	                <p>JSON</p>
-	            	<pre>{formatGrowCycle(this.state.grow_cycle)}</pre>
+	            	<pre>{formatNodeSettings(this.state.node_settings)}</pre>
 	                <br/><br/><br/>
 					light_on_at: <input type="text" className="text-input--underbar" name="light_on_at" value={plantStage0["light_on_at"]} onChange={this.handleChange} placeholder="light_on_at" /><br/><br/>
 					light_off_at: <input type="text" className="text-input--underbar" name="light_off_at" value={plantStage0["light_off_at"]} onChange={this.handleChange} placeholder="light_off_at" /><br/><br/>
@@ -95,7 +95,7 @@ class GrowCycleCreator extends Component {
    
     render () {
         return(
-	        <Page renderToolbar={() => <NavBar title='New Grow Cycle' navigator={this.props.navigator} backButton={true}/>}>
+	        <Page renderToolbar={() => <NavBar title='New Node Settings' navigator={this.props.navigator} backButton={true}/>}>
 	        	{this.renderForm()}
 	        </Page>
         )
@@ -107,4 +107,4 @@ function mapStateToProps (state) {
     return {selected_user_node: state.selectedUserNode}
 }
 
-export default connect(mapStateToProps, {mqttSend, createGrowCycle})(GrowCycleCreator);
+export default connect(mapStateToProps, {mqttSend, createNodeSettings})(NodeSettingsCreator);
