@@ -11,7 +11,7 @@ export const formatNodeSettings = (cylce_obj) => {
     // new_stage.air_temp_high = parseInt(obj_to_push.air_temp_high)
     // new_stage.air_temp_low = parseInt(obj_to_push.air_temp_low)
 
-    // delete obj_to_push.id
+    delete obj_to_push.stage_name
     // delete obj_to_push.status
     obj_to_push = {settings: obj_to_push}
 
