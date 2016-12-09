@@ -1,10 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import TimeAgo from 'react-timeago'
+
 import NavBar from '../components/NavBar';
 import NodeSettingsView from './NodeSettingsView';
 import NodeSettingsCreator from './NodeSettingsCreator';
-import Moment from 'react-moment';
-import TimeAgo from 'react-timeago'
+import ManuallyControlledDevices from './ManuallyControlledDevices';
 
 import {
   Page,
@@ -49,6 +51,7 @@ class NodePage extends Component {
                     Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
                     Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                 </p>
+                <ManuallyControlledDevices />
                 <h2>Node Settings</h2>
                 <NodeSettingsView node={node}/>
                 <Button onClick={() => {this.props.navigator.pushPage({component: NodeSettingsCreator})}}>Load a new Node Settings</Button>
