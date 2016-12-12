@@ -1,20 +1,17 @@
 {
-  "name": "Grow Nodes App",
+  "name": "Grow-Nodes-App",
   "version": "1.0.0",
   "description": "Cordova/Phonegap",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
-    // "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    // "deploy": "npm run build && git commit www -m \"Deploy\" && git subtree push --prefix www origin gh-pages",
-    // "lint": "eslint ."
+    "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GrowNodes/GrowApp.git"
   },
   "author": "Grow Nodes <keviny@grownodes.com>",
-  "license": "Copyright (C) All Rights Reserved.",
+  "license": "UNLICENSED",
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.0",
