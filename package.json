@@ -1,7 +1,7 @@
 {
-  "name": "react-onsenui-redux-weather",
+  "name": "Grow Nodes App",
   "version": "1.0.0",
-  "description": "Simple Weather App implemntation with Onsen UI React Components and Redux",
+  "description": "Cordova/Phonegap",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --progress --content-base www/",
@@ -11,14 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/argelius/react-onsenui-redux-weather.git"
+    "url": "git+https://github.com/GrowNodes/GrowApp.git"
   },
-  "author": "Andreas Argelius <andreas@argeli.us>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/argelius/react-onsenui-redux-weather/issues"
-  },
-  "homepage": "https://github.com/argelius/react-onsenui-redux-weather#readme",
+  "author": "Grow Nodes <keviny@grownodes.com>",
+  "license": "Copyright (C) All Rights Reserved.",
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.0",
