@@ -26,9 +26,9 @@ import './stylus/index.styl';
 const store = createStore(weatherApp,
   window.devToolsExtension ? window.devToolsExtension() : f => f,
   process.env.NODE_ENV === 'production'
-    ? applyMiddleware(thunk)
-    : applyMiddleware(thunk/*, logger */)
-);
+  ? applyMiddleware(thunk)
+  : applyMiddleware(thunk/*, logger */)
+  );
 
 
 
@@ -43,16 +43,16 @@ const sock = {
 
     switch (lastAction.type) {
       case MQTT_SEND_CMD:
-        return sock.ws.sendMessage(lastAction.topic, lastAction.message);
+      return sock.ws.sendMessage(lastAction.topic, lastAction.message);
 
       case MQTT_CONNECT_CMD:
-        return sock.startWS();
+      return sock.startWS();
 
       case MQTT_DISCONNECT_CMD:
-        return sock.stopWS();
+      return sock.stopWS();
 
       default:
-        return;
+      return;
     }
   },
   stopWS: () => {
@@ -67,41 +67,60 @@ const sock = {
   }
 };
 // sock.wsListener();
-store.subscribe(sock.wsListener);
 
 
 
-
-store.dispatch(bindAuthState());
-
-
-
-
-
-
-
-
+document.addEventListener("deviceready", onDeviceReady, false);
 const rootElement = document.getElementById('root');
 
-ons.ready(() => render(
-  <AppContainer>
-    <Provider store={store}>
-      <App store={store}/>
-    </Provider>
-  </AppContainer>,
-  rootElement
-));
+function onDeviceReady() {
+  store.subscribe(sock.wsListener);
+  store.dispatch(bindAuthState());
 
-if (module.hot) {
-  module.hot.accept('./containers/App', () => {
-    const NextApp = require('./containers/App').default;
-    render(
-      <AppContainer>
+  document.addEventListener("pause", onPause, false);
+  document.addEventListener("resume", onResume, false);
+  document.addEventListener("menubutton", onMenuKeyDown, false);
+  ons.ready(() => render(
+    <AppContainer>
+    <Provider store={store}>
+    <App store={store}/>
+    </Provider>
+    </AppContainer>,
+    rootElement
+    ));
+
+  if (module.hot) {
+    module.hot.accept('./containers/App', () => {
+      const NextApp = require('./containers/App').default;
+      render(
+        <AppContainer>
         <Provider store={store}>
-          <NextApp store={store}/>
+        <NextApp store={store}/>
         </Provider>
-      </AppContainer>,
-      rootElement
-    );
-  });
+        </AppContainer>,
+        rootElement
+        );
+    });
+  }
+
 }
+
+function onPause() {
+    // Handle the pause event
+    console.log("paused");
+  }
+
+  function onResume() {
+    // Handle the resume event
+    console.log("resume");
+  }
+
+  function onMenuKeyDown() {
+    // Handle the menubutton event
+    console.log("menu key down")
+  }
+
+// Add similar event handlers for other events
+
+
+

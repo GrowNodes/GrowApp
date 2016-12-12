@@ -25,4 +25,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="com.example.hello" spec="https://github.com/don/cordova-plugin-hello.git" />
 </widget>
