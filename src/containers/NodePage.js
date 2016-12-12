@@ -15,10 +15,6 @@ import {
 
 
 class NodePage extends Component {
-    static contextTypes = {
-        router: PropTypes.object
-    };
-
     renderLastSeen() {
         const node = this.props.node;
         if (node["last_seen"]) {
