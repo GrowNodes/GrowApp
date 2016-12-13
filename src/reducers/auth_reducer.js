@@ -5,7 +5,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    error: null,
+    error: {},
     authenticated: false
 };
 
@@ -15,7 +15,7 @@ export default function(state = INITIAL_STATE, action) {
 
             return {
                 ...state,
-                error: null,
+                error: {},
                 authenticated: true
             }
 
@@ -23,7 +23,7 @@ export default function(state = INITIAL_STATE, action) {
         case UNAUTH_USER:
             return {
                 ...state,
-                error: null,
+                error: action.payload,
                 authenticated: false
             }
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { Field, reduxForm, submit } from 'redux-form';
 import {
   Page,
@@ -49,25 +50,17 @@ const styles = {
 
 class SignInForm extends Component {
 
-    renderError() {
-        // if (this.props.errorMessage) {
-        //     return (
-        //         <div className="alert alert-danger">
-        //             {this.props.errorMessage}
-        //         </div>
-        //     );
-        // };
-    }
   render() {
     const { handleSubmit } = this.props;
     return (
                 <div style={styles.login_form}>
-                {this.renderError()}
                     <form onSubmit={handleSubmit}>
                         <Field name="email" component="input" type="text" className="text-input--underbar" placeholder="Email" />
                         <Field name="password" component="input" type="text" className="text-input--underbar" placeholder="Password" />
-                        <br/><br/>
-                        <Button modifier="large" style={styles.login_button} onClick={() => this.props.submit('contact')}>Sign In</Button>
+                        <br/>
+                        <p style={{color: "red"}}>{this.props.auth_error}</p>
+                        <br/>
+                        <Button modifier="large" style={styles.login_button} onClick={() => this.props.submit('sign_in')}>Sign In</Button>
                         <br/><br/>
                         <Button modifier="quiet" style={styles["forgot-password"]}>Forgot password?</Button>
                     </form>
@@ -77,9 +70,12 @@ class SignInForm extends Component {
   }
 }
 
-// Decorate the form component
-SignInForm = reduxForm({
-  form: 'contact' // a unique name for this form
-}, null, {submit})(SignInForm);
+const mapStateToProps = (state) => ({
+  auth_error: state.auth.error.message
+});
 
-export default SignInForm           
+
+export default connect(mapStateToProps, null)(reduxForm({
+  form: 'sign_in' // a unique name for this form
+})(SignInForm))
+
