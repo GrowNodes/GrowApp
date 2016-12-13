@@ -68,9 +68,13 @@ const sock = {
 };
 // sock.wsListener();
 
+window.isCordova = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+if (isCordova) {
+  document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+  onDeviceReady();
+}
 
-
-document.addEventListener("deviceready", onDeviceReady, false);
 const rootElement = document.getElementById('root');
 
 function onDeviceReady() {
@@ -80,24 +84,25 @@ function onDeviceReady() {
 
 
 
-
-  FCMPlugin.onNotification(
-    function(data){
-      if(data.wasTapped){
-        //Notification was received on device tray and tapped by the user.
-        alert( JSON.stringify(data) );
-      }else{
-        //Notification was received in foreground. Maybe the user needs to be notified.
-        alert( JSON.stringify(data) );
+  if (typeof FCMPlugin !== 'undefined') {
+    FCMPlugin.onNotification(
+      function(data){
+        if(data.wasTapped){
+          //Notification was received on device tray and tapped by the user.
+          alert( JSON.stringify(data) );
+        }else{
+          //Notification was received in foreground. Maybe the user needs to be notified.
+          alert( JSON.stringify(data) );
+        }
+      },
+      function(msg){
+        console.log('onNotification callback successfully registered: ' + msg);
+      },
+      function(err){
+        console.log('Error registering onNotification callback: ' + err);
       }
-    },
-    function(msg){
-      console.log('onNotification callback successfully registered: ' + msg);
-    },
-    function(err){
-      console.log('Error registering onNotification callback: ' + err);
-    }
-  );
+    );
+  };
 
 
 
