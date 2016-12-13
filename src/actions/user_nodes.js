@@ -2,7 +2,7 @@ import {
     USER_NODES_FETCHING,
     USER_NODES_FETCHED,
     USER_NODES_FETCH_FAILED,
-    SELECT_USER_NODE
+    SELECT_USER_NODE,
 } from './types';
 
 import Base from '../util/Base'
