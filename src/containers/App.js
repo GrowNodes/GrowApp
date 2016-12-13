@@ -9,26 +9,31 @@ import MainPage from '../components//MainPage';
 import SignInPage from './SignInPage';
 import Base from '../util/Base'
 
-import {getUserNodes} from '../actions/user_nodes';
-import {mqttConnect} from '../actions/mqtt';
-
 class App extends Component {
-  componentDidMount() {
-    this.props.getUserNodes(this).then(() => this.props.mqttConnect())
-  }
 
   renderPage(route, navigator) {
     return <route.component key={uuid.v4()} navigator={navigator} />
   }
 
   render() {
+
+    if (this.props.authed) {
       return (
         <Navigator
           renderPage={this.renderPage.bind(this)}
           initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
         />
       );
+    } else {
+      return(
+          <SignInPage/>
+      )
+    }
   }
 }
 
-export default connect(null, {getUserNodes, mqttConnect})(App)
+const mapStateToProps = (state) => ({
+  authed: state.auth.authenticated
+});
+
+export default connect(mapStateToProps)(App)

@@ -13,7 +13,7 @@ export function signinUser({email, password}) {
           if (error) {
             dispatch({ type: AUTHFAILED_USER, payload: error })
           } else {
-            dispatch({ type: AUTHED_USER, payload: {auth_token: "lollercoaster", email: "asdf@asdf.com" }});
+            dispatch({ type: AUTHED_USER });
           }
         }
 

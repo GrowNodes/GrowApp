@@ -10,8 +10,9 @@ import {AppContainer} from 'react-hot-loader';
 
 import MqttInstance from './util/Mqtt.js';
 import {mqttIncoming} from './actions/mqtt';
-import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD } from './actions/types.js';
-
+import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD, AUTHED_USER } from './actions/types.js';
+import {getUserNodes} from './actions/user_nodes';
+import {mqttConnect} from './actions/mqtt';
 import weatherApp from './reducers';
 import App from './containers/App';
 
@@ -81,6 +82,12 @@ function onDeviceReady() {
   store.subscribe(sock.wsListener);
   // store.dispatch(bindAuthState());
   Base.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      store.dispatch({ type: AUTHED_USER });
+      store.dispatch(getUserNodes(this)).then(() => store.dispatch(mqttConnect()))
+    } else {
+      console.log("u need to log in bro")
+    }
     launchApp()
   })
 }
@@ -104,6 +111,11 @@ function onPause() {
 
 
 function launchApp() {
+  if (window.app_launched) {
+    return
+  }
+  window.app_launched = true
+
   console.log("launchApp", Base.auth())
   if (typeof FCMPlugin !== 'undefined') {
     // FCMPlugin.subscribeToTopic(user.uid)
@@ -127,22 +139,19 @@ function launchApp() {
   };
 
 
-
-
-
-
   const rootElement = document.getElementById('root');
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
   document.addEventListener("menubutton", onMenuKeyDown, false);
-  ons.ready(() => render(
+
+  render(
     <AppContainer>
     <Provider store={store}>
     <App store={store}/>
     </Provider>
     </AppContainer>,
     rootElement
-    ));
+    )
 
   if (module.hot) {
     module.hot.accept('./containers/App', () => {
