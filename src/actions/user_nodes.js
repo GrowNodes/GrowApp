@@ -39,6 +39,10 @@ function getUserNodes(ctx) {
         return Base.fetch('grow_nodes', {
             context: ctx,
             asArray: false,
+            queries: {
+                orderByChild: 'owner_uid',
+                equalTo: Base.auth().currentUser.uid
+            }
         }).then(data => {
             console.log(data);
             dispatch({ type: USER_NODES_FETCHED, data })
