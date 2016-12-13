@@ -12,7 +12,7 @@ export function bindAuthState() {
             console.log("onAuthStateChanged", user)
             if (user) {
                 dispatch({ type: AUTHED_USER});
-                FCMPlugin.subscribeToTopic(user.email)
+                FCMPlugin.subscribeToTopic(user.uid)
             } else {
                 dispatch({ type: AUTHFAILED_USER });
             }
