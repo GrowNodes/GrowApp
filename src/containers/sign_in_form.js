@@ -61,9 +61,8 @@ class SignInForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <Page renderToolbar={() => <NavBar title='Grow Nodes Sign In' navigator={navigator} />}>
-                {this.renderError()}
                 <div style={styles.login_form}>
+                {this.renderError()}
                     <form onSubmit={handleSubmit}>
                         <Field name="email" component="input" type="text" className="text-input--underbar" placeholder="Email" />
                         <Field name="password" component="input" type="text" className="text-input--underbar" placeholder="Password" />
@@ -73,7 +72,7 @@ class SignInForm extends Component {
                         <Button modifier="quiet" style={styles["forgot-password"]}>Forgot password?</Button>
                     </form>
                 </div>
-            </Page>
+            
     );
   }
 }

@@ -7,6 +7,10 @@ import _ from 'lodash'
 import ons from 'onsenui';
 
 import {
+  Page,
+  Toolbar,
+  Button,
+  NavBar,
   Notification
 } from 'react-onsenui';
 
@@ -30,14 +34,11 @@ class SignInPage extends React.Component {
 
   render() {
     return (
-      <SignInForm onSubmit={this.handleSubmit.bind(this)} />
+      <Page>
+          <SignInForm onSubmit={this.handleSubmit.bind(this)} />
+      </Page>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return { auth: state.auth }
-}
-
-
-export default connect(mapStateToProps, {signinUser})(SignInPage)
+export default connect(null, {signinUser})(SignInPage)

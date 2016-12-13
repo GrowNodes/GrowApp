@@ -36,5 +36,3 @@ node_modules
 platforms
 plugins
 
-www/*
-www/!index.html

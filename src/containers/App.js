@@ -9,40 +9,31 @@ import MainPage from '../components//MainPage';
 import SignInPage from './SignInPage';
 import Base from '../util/Base'
 
-import {getUserNodesIfNeeded} from '../actions/user_nodes';
-import {mqttConnect} from '../actions/mqtt';
-
 class App extends Component {
-  componentWillMount() {
-    Base.auth().onAuthStateChanged((user) => {
-        if (user) {
-          console.log("getting user nodes and connecting to mqtt", user)
-            this.props.getUserNodesIfNeeded(this).then(() => this.props.mqttConnect())
-        }
-    })
-  }
 
   renderPage(route, navigator) {
-    if (!Base.auth().currentUser) {
-        return <SignInPage key={uuid.v4()} navigator={navigator} />
-    } else {
-      return <route.component key={uuid.v4()} navigator={navigator} />
-    }
+    return <route.component key={uuid.v4()} navigator={navigator} />
   }
 
   render() {
+
+    if (this.props.authed) {
       return (
         <Navigator
           renderPage={this.renderPage.bind(this)}
           initialRoute={{component: MainPage, key: 'MAIN_PAGE'}}
         />
       );
+    } else {
+      return(
+          <SignInPage/>
+      )
+    }
   }
 }
 
+const mapStateToProps = (state) => ({
+  authed: state.auth.authenticated
+});
 
-function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated, auth_waiting: state.auth.waiting }
-}
-
-export default connect(mapStateToProps, {getUserNodesIfNeeded, mqttConnect})(App)
+export default connect(mapStateToProps)(App)

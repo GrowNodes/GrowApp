@@ -2,7 +2,7 @@ import {
     USER_NODES_FETCHING,
     USER_NODES_FETCHED,
     USER_NODES_FETCH_FAILED,
-    SELECT_USER_NODE
+    SELECT_USER_NODE,
 } from './types';
 
 import Base from '../util/Base'
@@ -14,31 +14,17 @@ export const selectUserNode = serial => ({
   serial
 });
 
-export function getUserNodesIfNeeded(ctx) {
-    return (dispatch, getState) => {
-        if (shouldGetUserNodes(getState())) {
-            return dispatch(getUserNodes(ctx));
-        }
-        return Promise.resolve();
-    }
-}
-
-function shouldGetUserNodes(state) {
-    const authed = state.auth.authenticated;
-    if (state.auth.authenticated) {
-        return true;
-    }
-    return false;
-}
-
-
-function getUserNodes(ctx) {
+export function getUserNodes(ctx) {
     return (dispatch) => {
         dispatch({ type: USER_NODES_FETCHING });
 
         return Base.fetch('grow_nodes', {
             context: ctx,
             asArray: false,
+            queries: {
+                orderByChild: 'owner_uid',
+                equalTo: Base.auth().currentUser.uid
+            }
         }).then(data => {
             console.log(data);
             dispatch({ type: USER_NODES_FETCHED, data })

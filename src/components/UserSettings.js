@@ -29,8 +29,4 @@ class UserSettings extends Component {
     }
 }
 
-// function mapStateToProps (state) {
-//     return { auth: state.auth}
-// }
-
 export default connect(null, {signoutUser, mqttDisconnect})(UserSettings);
