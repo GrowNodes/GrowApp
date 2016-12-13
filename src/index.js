@@ -77,6 +77,34 @@ function onDeviceReady() {
   store.subscribe(sock.wsListener);
   store.dispatch(bindAuthState());
 
+
+
+
+
+  FCMPlugin.onNotification(
+    function(data){
+      if(data.wasTapped){
+        //Notification was received on device tray and tapped by the user.
+        alert( JSON.stringify(data) );
+      }else{
+        //Notification was received in foreground. Maybe the user needs to be notified.
+        alert( JSON.stringify(data) );
+      }
+    },
+    function(msg){
+      console.log('onNotification callback successfully registered: ' + msg);
+    },
+    function(err){
+      console.log('Error registering onNotification callback: ' + err);
+    }
+  );
+
+
+
+
+
+
+
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
   document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -121,6 +149,5 @@ function onPause() {
   }
 
 // Add similar event handlers for other events
-
 
 
