@@ -14,25 +14,7 @@ export const selectUserNode = serial => ({
   serial
 });
 
-export function getUserNodesIfNeeded(ctx) {
-    return (dispatch, getState) => {
-        if (shouldGetUserNodes(getState())) {
-            return dispatch(getUserNodes(ctx));
-        }
-        return Promise.resolve();
-    }
-}
-
-function shouldGetUserNodes(state) {
-    const authed = state.auth.authenticated;
-    if (state.auth.authenticated) {
-        return true;
-    }
-    return false;
-}
-
-
-function getUserNodes(ctx) {
+export function getUserNodes(ctx) {
     return (dispatch) => {
         dispatch({ type: USER_NODES_FETCHING });
 
@@ -41,7 +23,7 @@ function getUserNodes(ctx) {
             asArray: false,
             queries: {
                 orderByChild: 'owner_uid',
-                equalTo: Base.auth().currentUser.uid
+                // equalTo: Base.auth().currentUser.uid
             }
         }).then(data => {
             console.log(data);

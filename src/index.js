@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import Base from './util/Base';
 
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
@@ -9,7 +10,6 @@ import {AppContainer} from 'react-hot-loader';
 
 import MqttInstance from './util/Mqtt.js';
 import {mqttIncoming} from './actions/mqtt';
-import {bindAuthState} from './actions/bind_auth'
 import { MQTT_CONNECT_CMD, MQTT_DISCONNECT_CMD, MQTT_SEND_CMD } from './actions/types.js';
 
 import weatherApp from './reducers';
@@ -75,16 +75,40 @@ if (isCordova) {
   onDeviceReady();
 }
 
-const rootElement = document.getElementById('root');
+
 
 function onDeviceReady() {
   store.subscribe(sock.wsListener);
-  store.dispatch(bindAuthState());
+  // store.dispatch(bindAuthState());
+  Base.auth().onAuthStateChanged(function(user) {
+    console.log(user)
+    window.user = user
+    // launchApp()
+  })
+}
+
+function onPause() {
+    // Handle the pause event
+    console.log("paused");
+  }
+
+  function onResume() {
+    // Handle the resume event
+    console.log("resume");
+  }
+
+  function onMenuKeyDown() {
+    // Handle the menubutton event
+    console.log("menu key down")
+  }
+
+// Add similar event handlers for other events
 
 
-
-
+function launchApp() {
+  console.log("launchApp", Base.auth())
   if (typeof FCMPlugin !== 'undefined') {
+    // FCMPlugin.subscribeToTopic(user.uid)
     FCMPlugin.onNotification(
       function(data){
         if(data.wasTapped){
@@ -109,7 +133,7 @@ function onDeviceReady() {
 
 
 
-
+  const rootElement = document.getElementById('root');
   document.addEventListener("pause", onPause, false);
   document.addEventListener("resume", onResume, false);
   document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -137,22 +161,3 @@ function onDeviceReady() {
   }
 
 }
-
-function onPause() {
-    // Handle the pause event
-    console.log("paused");
-  }
-
-  function onResume() {
-    // Handle the resume event
-    console.log("resume");
-  }
-
-  function onMenuKeyDown() {
-    // Handle the menubutton event
-    console.log("menu key down")
-  }
-
-// Add similar event handlers for other events
-
-

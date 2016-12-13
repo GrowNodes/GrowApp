@@ -35,9 +35,4 @@ class SignInPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { auth: state.auth }
-}
-
-
-export default connect(mapStateToProps, {signinUser})(SignInPage)
+export default connect(null, {signinUser})(SignInPage)
