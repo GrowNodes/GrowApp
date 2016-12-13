@@ -23,7 +23,7 @@ export function getUserNodes(ctx) {
             asArray: false,
             queries: {
                 orderByChild: 'owner_uid',
-                // equalTo: Base.auth().currentUser.uid
+                equalTo: Base.auth().currentUser.uid
             }
         }).then(data => {
             console.log(data);

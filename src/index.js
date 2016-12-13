@@ -81,9 +81,7 @@ function onDeviceReady() {
   store.subscribe(sock.wsListener);
   // store.dispatch(bindAuthState());
   Base.auth().onAuthStateChanged(function(user) {
-    console.log(user)
-    window.user = user
-    // launchApp()
+    launchApp()
   })
 }
 
