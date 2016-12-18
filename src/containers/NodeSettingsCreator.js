@@ -83,8 +83,6 @@ class NodeSettingsCreator extends Component {
 	                <br/><br/><br/>
 					light_on_at: <input type="text" className="text-input--underbar" name="light_on_at" value={node_settings["light_on_at"]} onChange={this.handleChange} placeholder="light_on_at" /><br/><br/>
 					light_off_at: <input type="text" className="text-input--underbar" name="light_off_at" value={node_settings["light_off_at"]} onChange={this.handleChange} placeholder="light_off_at" /><br/><br/>
-					air_temp_high: <input type="text" className="text-input--underbar" name="air_temp_high" value={node_settings["air_temp_high"]} onChange={this.handleChange} placeholder="air_temp_high" /><br/><br/>
-					air_temp_low: <input type="text" className="text-input--underbar" name="air_temp_low" value={node_settings["air_temp_low"]} onChange={this.handleChange} placeholder="air_temp_low" /><br/><br/>
 	            
 		            <Button modifier="large" onClick={this.uploadSettings.bind(this)}>Upload to Grow Node</Button>
             	</div>
