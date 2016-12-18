@@ -34,7 +34,7 @@ export default function(state = INITIAL_STATE, action) {
         case "$fw/checksum":
         case "$implementation/ota/enabled":
         case "$stats/signal":
-
+        case "waterlevel/gallons":
         case "temperature/degrees":
             var message = action.payload.message
             var serial = action.payload.serial

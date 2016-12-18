@@ -44,6 +44,7 @@ class NodePage extends Component {
                 <h2>Connected Devices</h2>
                 <p>
                     Temperature: {node["temperature/degrees"]} &deg;F<br/>
+                    Water Level: {node["waterlevel/gallons"]} Gallons<br/>
                     Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
                     Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                 </p>
