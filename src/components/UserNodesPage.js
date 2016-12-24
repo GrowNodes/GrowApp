@@ -6,12 +6,12 @@ import {
 
 import NavBar from './NavBar';
 import UserNodeList from '../containers/UserNodeList';
-import AddGrowNode from '../containers/AddGrowNode';
+import AddGrowNodeBtn from '../containers/AddGrowNodeBtn';
 
 const UserNodesPage = ({navigator}) => (
   <Page renderToolbar={() => <NavBar title='Grow Nodes' navigator={navigator} backButton={true}/>}>
     <UserNodeList navigator={navigator} />
-    <AddGrowNode />
+    <AddGrowNodeBtn navigator={navigator}/>
   </Page>
 );
 
