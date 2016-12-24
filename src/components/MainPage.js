@@ -7,7 +7,7 @@ import {
 
 import UserNodesPage from './UserNodesPage';
 
-import UserSettings from './UserSettings'
+import UserSettings from '../containers/UserSettings'
 
 const MainPage = ({navigator}) => (
   <Page>

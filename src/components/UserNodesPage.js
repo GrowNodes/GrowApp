@@ -6,7 +6,7 @@ import {
 
 import NavBar from './NavBar';
 import UserNodeList from '../containers/UserNodeList';
-import AddGrowNodeBtn from '../containers/AddGrowNodeBtn';
+import AddGrowNodeBtn from './AddGrowNodeBtn';
 
 const UserNodesPage = ({navigator}) => (
   <Page renderToolbar={() => <NavBar title='Grow Nodes' navigator={navigator} backButton={true}/>}>

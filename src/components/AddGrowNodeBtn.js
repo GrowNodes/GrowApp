@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
 import {platform} from 'onsenui';
 
-import NavBar from '../components/NavBar';
-import AddGrowNodePage from './AddGrowNodePage';
+import NavBar from './NavBar';
+import AddGrowNodePage from '../containers/AddGrowNodePage';
 
 import {
   Fab,
@@ -41,7 +40,4 @@ class AddGrowNodeBtn extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-});
-
-export default connect(mapStateToProps, null)(AddGrowNodeBtn);
+export default AddGrowNodeBtn;
