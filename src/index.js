@@ -67,7 +67,30 @@ const sock = {
     sock.ws = new MqttInstance(sock.URL, sock.wsDipatcher, serials)
   }
 };
-// sock.wsListener();
+
+const GNSetup = {
+  currentSSID: null,
+  
+  startSsidLoop: () => {
+    setInterval(GNSetup.ssidLoop(), 3000);
+  },
+
+  ssidLoop: () => {
+    WifiWizard.getCurrentSSID(GNSetup.ssidHandler, GNSetup.ssidFailHandler)
+  },
+
+  ssidHandler: (ssid) => {
+    GNSetup.currentSSID = ssid
+    console.log("Current SSID", GNSetup.currentSSID)
+  },
+
+  ssidFailHandler: (fail) => {
+    console.log("failed to get SSID", fail)
+  }
+};
+
+
+
 
 window.isCordova = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 if (isCordova) {
@@ -76,33 +99,9 @@ if (isCordova) {
   onDeviceReady();
 }
 
-const GNSetup = {
-  currentSSID: null
-  
-  startSsidLoop: () => {
-    setInterval(this.SsidLoop(), 3000);
-  }
-
-  ssidLoop: () => {
-    WifiWizard.getCurrentSSID(ssidHandler, fail)
-  }
-
-  ssidHandler: (ssid) => {
-    this.currentSSID = ssid
-    console.log("Current SSID", this.currentSSID)
-  }
-
-  ssidFailHandler: (fail) => {
-    console.log("failed to get SSID", fail)
-  }
-}
-
-function parseSSID(ssid) {
-
-}
-
 function onDeviceReady() {
   store.subscribe(sock.wsListener);
+  console.log(GNSetup)
   GNSetup.startSsidLoop();
   // store.dispatch(bindAuthState());
   Base.auth().onAuthStateChanged(function(user) {
