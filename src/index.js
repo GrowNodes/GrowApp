@@ -76,10 +76,34 @@ if (isCordova) {
   onDeviceReady();
 }
 
+const GNSetup = {
+  currentSSID: null
+  
+  startSsidLoop: () => {
+    setInterval(this.SsidLoop(), 3000);
+  }
 
+  ssidLoop: () => {
+    WifiWizard.getCurrentSSID(ssidHandler, fail)
+  }
+
+  ssidHandler: (ssid) => {
+    this.currentSSID = ssid
+    console.log("Current SSID", this.currentSSID)
+  }
+
+  ssidFailHandler: (fail) => {
+    console.log("failed to get SSID", fail)
+  }
+}
+
+function parseSSID(ssid) {
+
+}
 
 function onDeviceReady() {
   store.subscribe(sock.wsListener);
+  GNSetup.startSsidLoop();
   // store.dispatch(bindAuthState());
   Base.auth().onAuthStateChanged(function(user) {
     if (user) {
