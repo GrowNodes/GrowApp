@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
     PROVISIONING_NETWORKS_LIST_FETCHING,
     PROVISIONING_NETWORKS_LIST_FETCH_FAILED,
@@ -25,7 +27,7 @@ export default function(state = INITIAL_STATE, action) {
         case PROVISIONING_NETWORKS_LIST_FETCHED:
             return {
                 ...state,
-                homieScannedNetworks: action.payload
+                homieScannedNetworks: _.orderBy(action.payload, ['rssi'], ['desc'])
             }
     }
 
