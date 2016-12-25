@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form'
 import authReducer from './auth_reducer'
 import selectedUserNode from './selectedUserNode';
 import user_nodes from './user_nodes';
+import provisioning from './provisioning';
 import dialog from './dialog';
 
 function lastAction(state = null, action) {
@@ -17,6 +18,7 @@ const todoApp = combineReducers({
   form: formReducer,
   user_nodes,
   selectedUserNode,
+  provisioning,
   dialog
 });
 
