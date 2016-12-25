@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ProvisioningNetworkForm from './ProvisioningNetworkForm'
 import MainPage from '../components/MainPage';
-import {signinUser} from '../actions/sign_in'
+import * as provisioningActions from '../actions/provisioning'
 import _ from 'lodash'
 import ons from 'onsenui';
 import NavBar from '../components/NavBar';
@@ -32,10 +32,16 @@ class ProvisioningNetworkPage extends React.Component {
   render() {
     return (
       <Page renderToolbar={() => <NavBar title={"Connect"} navigator={this.props.navigator} backButton={true}/>}>
+          Selected wifi network: {this.props.selectedNetwork}
           <ProvisioningNetworkForm onSubmit={this.handleSubmit.bind(this)} />
       </Page>
     );
   }
 }
 
-export default connect(null, {signinUser})(ProvisioningNetworkPage)
+
+const mapStateToProps = (state) => ({
+  selectedNetwork: state.provisioning.objToSend.wifi.ssid
+});
+
+export default connect(mapStateToProps, provisioningActions)(ProvisioningNetworkPage);
