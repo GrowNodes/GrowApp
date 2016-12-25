@@ -45,7 +45,7 @@ class ProvisioningSelectNetworkPage extends Component {
                 Currently connected to SSID: {this.state.ssid}<br/>
                 Provisioning grow node: {this.props.sysinfo.hardware_device_id}
               </p>
-              <NetworksList navigator={navigator} />
+              <NetworksList navigator={this.props.navigator} />
           </Page>
       );
   }
