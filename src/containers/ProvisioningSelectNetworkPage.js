@@ -22,8 +22,8 @@ class ProvisioningSelectNetworkPage extends Component {
   }
 
   componentDidMount() {
-     this.getSsid();
-     var intervalId = setInterval(this.getSsid.bind(this), 5000);
+     this.getNetworks();
+     var intervalId = setInterval(this.getNetworks.bind(this), 5000);
      // store intervalId in the state so it can be accessed later:
      this.setState({intervalId});
   }
@@ -32,7 +32,7 @@ class ProvisioningSelectNetworkPage extends Component {
     clearInterval(this.state.intervalId);
   }
 
-  getSsid() {
+  getNetworks() {
     // WifiWizard.getCurrentSSID(this.setSsid)
     this.props.fetchNetworksList();
     this.setState({...this.state, ssid: Math.random()})
