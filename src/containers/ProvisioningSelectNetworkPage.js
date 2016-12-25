@@ -12,7 +12,7 @@ import {
 } from 'react-onsenui';
 
 
-class AddGrowNodePage extends Component {
+class ProvisioningSelectNetworkPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,19 +34,17 @@ class AddGrowNodePage extends Component {
 
   getSsid() {
     // WifiWizard.getCurrentSSID(this.setSsid)
-    this.props.fetchSysInfo();
     this.props.fetchNetworksList();
     this.setState({...this.state, ssid: Math.random()})
   }
 
   render () {
       return (
-          <Page renderToolbar={() => <NavBar title={"Add Grow Node"} navigator={this.props.navigator} backButton={true}/>}>
-              <h1>Add Grow Node</h1>
-              <p>Currently connected to SSID: {this.state.ssid}</p>
-              <h2>Detected grow node</h2>
-              <p>{JSON.stringify(this.props.sysinfo)}</p>
-              <h2>Pick a wifi to connect to: </h2>
+          <Page renderToolbar={() => <NavBar title={"Select a WiFi"} navigator={this.props.navigator} backButton={true}/>}>
+              <p>
+                Currently connected to SSID: {this.state.ssid}<br/>
+                Provisioning grow node: {this.props.sysinfo.hardware_device_id}
+              </p>
               <NetworksList navigator={navigator} />
           </Page>
       );
@@ -54,7 +52,7 @@ class AddGrowNodePage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  sysinfo: state.provisioning.homieDeviceInfo,
+  sysinfo: state.provisioning.homieDeviceInfo
 });
 
-export default connect(mapStateToProps, provisioningActions)(AddGrowNodePage);
+export default connect(mapStateToProps, provisioningActions)(ProvisioningSelectNetworkPage);

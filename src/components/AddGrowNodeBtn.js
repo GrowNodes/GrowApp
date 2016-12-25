@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {platform} from 'onsenui';
 
 import NavBar from './NavBar';
-import AddGrowNodePage from '../containers/AddGrowNodePage';
+import ProvisioningDetectGrowNodePage from '../containers/ProvisioningDetectGrowNodePage';
 
 import {
   Fab,
@@ -28,7 +28,7 @@ class AddGrowNodeBtn extends Component {
     );
   } else {
     button = (
-    	<Button modifier='large quiet' onClick={() => {this.props.navigator.pushPage({component: AddGrowNodePage})}}>+ ADD GROW_NODE</Button>
+    	<Button modifier='large quiet' onClick={() => {this.props.navigator.pushPage({component: ProvisioningDetectGrowNodePage})}}>+ ADD GROW_NODE</Button>
     );
   }
 
