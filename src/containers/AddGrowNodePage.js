@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-import Moment from 'react-moment';
-import TimeAgo from 'react-timeago'
+import NetworksList from '../components/NetworksList';
 
 import NavBar from '../components/NavBar';
 
@@ -48,7 +47,7 @@ class AddGrowNodePage extends Component {
               <h2>Detected grow node</h2>
               <p>{JSON.stringify(this.props.sysinfo)}</p>
               <h2>Pick a wifi to connect to: </h2>
-              {JSON.stringify(this.props.networks)}
+              <NetworksList navigator={navigator} />
           </Page>
       );
   }
@@ -56,7 +55,6 @@ class AddGrowNodePage extends Component {
 
 const mapStateToProps = (state) => ({
   sysinfo: state.provisioning.homieDeviceInfo,
-  networks: state.provisioning.homieScannedNetworks
 });
 
 export default connect(mapStateToProps, provisioningActions)(AddGrowNodePage);
