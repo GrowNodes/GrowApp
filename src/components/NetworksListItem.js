@@ -13,7 +13,7 @@ class NetworksListItem extends Component {
   render(){
     return (
       <ListItem onClick={() => {
-        // this.props.selectNetwork(this.props.serial);
+        this.props.selectNetwork(this.props.ssid);
         this.props.navigator.pushPage({component: ProvisioningNetworkPage});
       }} tappable>
         <div className='center'>

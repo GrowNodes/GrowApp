@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 import {
+    PROVISIONING_SELECT_NETWORK,
+
     PROVISIONING_NETWORKS_LIST_FETCHING,
     PROVISIONING_NETWORKS_LIST_FETCH_FAILED,
     PROVISIONING_NETWORKS_LIST_FETCHED,
@@ -12,7 +14,8 @@ import {
 const INITIAL_STATE = {
     phoneConnectedSSID: null,
     homieScannedNetworks: [],
-    homieDeviceInfo: {}
+    homieDeviceInfo: {},
+    objToSend: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -28,6 +31,12 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 homieScannedNetworks: _.orderBy(action.payload, ['rssi'], ['desc'])
+            }
+
+        case PROVISIONING_SELECT_NETWORK: 
+            return {
+                ...state,
+                objToSend: {...state.objToSend, wifi: {ssid: action.payload}}
             }
     }
 

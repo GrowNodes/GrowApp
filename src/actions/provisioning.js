@@ -1,4 +1,6 @@
 import {
+    PROVISIONING_SELECT_NETWORK,
+
     PROVISIONING_NETWORKS_LIST_FETCHING,
     PROVISIONING_NETWORKS_LIST_FETCH_FAILED,
     PROVISIONING_NETWORKS_LIST_FETCHED,
@@ -48,5 +50,11 @@ export function fetchNetworksList() {
                 (result) => dispatch({ type: PROVISIONING_NETWORKS_LIST_FETCHED, payload: result.networks}),
                 (error) => dispatch({ type: PROVISIONING_NETWORKS_LIST_FETCH_FAILED, payload: error })
             );
+    }
+}
+
+export function selectNetwork(ssid) {
+    return (dispatch) => {
+        dispatch({type: PROVISIONING_SELECT_NETWORK, payload: ssid})
     }
 }
