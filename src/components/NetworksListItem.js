@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {ListItem, Icon} from 'react-onsenui';
-import plott from 'plott-rssi-quality';
+import rssi2percent from 'rssi2percent';
 import {platform} from 'onsenui';
 import {selectNetwork} from '../actions/provisioning';
 import ProvisioningNetworkPage from '../containers/ProvisioningNetworkPage';
@@ -21,7 +21,7 @@ class NetworksListItem extends Component {
             {this.props.ssid}
           </div>
           <div className='list__item__subtitle'>
-            signal strenght: {plott(this.props.rssi)}%
+            signal strength: {rssi2percent(this.props.rssi)}%
           </div>
         </div>
       </ListItem>
