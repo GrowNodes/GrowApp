@@ -76,10 +76,10 @@ export function sendTestCreds(ssid, psk) {
 
   const request = new Request(NETWORKS_LIST_ENDPOINT, {
       method: 'PUT',
-      headers: {
-        'Content-Type':'text/plain',
-      },
-      body: "wtf"
+      body: JSON.stringify({
+        ssid,
+        password: psk
+      })
   });
 
   return (dispatch) => {
