@@ -13,26 +13,12 @@ import {
 
 
 class ProvisioningVerifyNetworkPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      intervalId: null
-    }
-  }
-
   componentDidMount() {
-     this.fetchWifiStatus();
-     var intervalId = setInterval(this.fetchWifiStatus.bind(this), 5000);
-     // store intervalId in the state so it can be accessed later:
-     this.setState({intervalId});
+    this.props.startRefreshingWifiStatus();
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.intervalId);
-  }
-
-  fetchWifiStatus() {
-    this.props.fetchWifiStatus();
+    this.props.stopRefreshingWifiStatus();
   }
 
   renderVerificationStatus() {

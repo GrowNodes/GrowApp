@@ -38,14 +38,18 @@ export function setPsk(psk) {
 }
 
 export function startRefreshingNetworksList() {
-  const intervalId = setInterval(fetchNetworksList, 5000);
   return (dispatch) => {
+    dispatch(fetchNetworksList()) // setInterval doesn't start immediately
+    const intervalId = setInterval(() => {
+      dispatch(fetchNetworksList())
+    }, 5000);
     dispatch({type: PROVISIONING_NETWORKS_LIST_STARTED_REFRESHING, payload: intervalId})
   }
 }
 
 export function stopRefreshingNetworksList() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    clearInterval(getState().provisioning.homieScannedNetworksSetIntervalId)
     dispatch({type: PROVISIONING_NETWORKS_LIST_STOPPED_REFRESHING})
   }
 }
@@ -119,14 +123,18 @@ export function sendTestCreds(ssid, psk) {
 
 
 export function startRefreshingWifiStatus() {
-  const intervalId = setInterval(fetchWifiStatus, 5000);
   return (dispatch) => {
+    dispatch(fetchWifiStatus()) // setInterval doesn't start immediately
+    const intervalId = setInterval(() => {
+      dispatch(fetchWifiStatus())
+    }, 5000);
     dispatch({type: PROVISIONING_WIFI_STATUS_STARTED_REFRESHING, payload: intervalId})
   }
 }
 
 export function stopRefreshingWifiStatus() {
   return (dispatch) => {
+    clearInterval(getState().provisioning.homieWifiStatusSetIntervalId)
     dispatch({type: PROVISIONING_WIFI_STATUS_STOPPED_REFRESHING})
   }
 }
