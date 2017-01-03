@@ -38,6 +38,18 @@ class ProvisioningDetectGrowNodePage extends Component {
     this.setState({...this.state, ssid: Math.random()})
   }
 
+  renderNextButton() {
+    if (this.props.sysinfo.hardware_device_id) {
+      return (
+        <Button onClick={() => {this.props.navigator.pushPage({component: ProvisioningSelectNetworkPage})}}>Continue</Button>
+      );
+    } else {
+      return (
+        <p>Searching for Grow Node...</p>
+      );
+    }
+  }
+
   render () {
       return (
           <Page renderToolbar={() => <NavBar title={"Provision Grow Node"} navigator={this.props.navigator} backButton={true}/>}>
@@ -49,8 +61,7 @@ class ProvisioningDetectGrowNodePage extends Component {
                 Return to this page.
               </p>
               <h2>Detected grow node: {this.props.sysinfo.hardware_device_id || "none"}</h2>
-              Click the button once the serial number shows up. <br/>
-              <Button onClick={() => {this.props.navigator.pushPage({component: ProvisioningSelectNetworkPage})}}>Continue</Button>
+              {this.renderNextButton()}
           </Page>
       );
   }

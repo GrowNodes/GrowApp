@@ -23,7 +23,7 @@ class ProvisioningNetworkForm extends Component {
                         <Button modifier="large" onClick={() => this.props.submit()}>Verify Settings</Button>
                     </form>
                 </div>
-            
+
     );
   }
 }
@@ -36,4 +36,3 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, null)(reduxForm({
   form: 'sign_in' // a unique name for this form
 })(ProvisioningNetworkForm))
-

@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import {
     PROVISIONING_SELECT_NETWORK,
+    PROVISIONING_SET_PSK,
 
     PROVISIONING_NETWORKS_LIST_FETCHING,
     PROVISIONING_NETWORKS_LIST_FETCH_FAILED,
@@ -36,10 +37,16 @@ export default function(state = INITIAL_STATE, action) {
                 )
             }
 
-        case PROVISIONING_SELECT_NETWORK: 
+        case PROVISIONING_SELECT_NETWORK:
             return {
                 ...state,
                 objToSend: {...state.objToSend, wifi: {ssid: action.payload}}
+            }
+
+        case PROVISIONING_SET_PSK:
+            return {
+              ...state,
+              objToSend: {...state.objToSend, wifi: {...state.objToSend.wifi, password: action.payload}}
             }
     }
 
@@ -63,6 +70,6 @@ const mergeSSID = function(old_ssids, new_ssids) {
     Object.keys(new_ssids_obj).map(function(key, index) {
        ssids_obj[key] = new_ssids_obj[key];
     });
-    
+
     return _.values(ssids_obj)
 }

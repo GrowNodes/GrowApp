@@ -22,8 +22,7 @@ class ProvisioningNetworkPage extends React.Component {
 // https://github.com/OnsenUI/react-onsenui/issues/82#issuecomment-237746900
   handleSubmit(values) {
     console.log(values);
-    let that = this
-    
+    this.props.setPsk(values.psk)
     // this.props.signinUser(values)
 
   }
