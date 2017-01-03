@@ -9,13 +9,17 @@ import {
     PROVISIONING_NETWORKS_LIST_FETCHED,
     PROVISIONING_SYSINFO_FETCHING,
     PROVISIONING_SYSINFO_FETCHED,
-    PROVISIONING_SYSINFO_FETCH_FAILED
+    PROVISIONING_SYSINFO_FETCH_FAILED,
+    PROVISIONING_WIFI_STATUS_FETCHING,
+    PROVISIONING_WIFI_STATUS_FETCHED,
+    PROVISIONING_WIFI_STATUS_FETCH_FAILED
 } from '../actions/types';
 
 const INITIAL_STATE = {
     phoneConnectedSSID: null,
     homieScannedNetworks: [],
     homieDeviceInfo: {},
+    homieWifiStatus: null,
     objToSend: {}
 };
 
@@ -35,6 +39,12 @@ export default function(state = INITIAL_STATE, action) {
                     mergeSSID(state.homieScannedNetworks, action.payload),
                     ['rssi'], ['desc']
                 )
+            }
+
+        case PROVISIONING_WIFI_STATUS_FETCHED:
+            return {
+                ...state,
+                homieWifiStatus: action.payload
             }
 
         case PROVISIONING_SELECT_NETWORK:

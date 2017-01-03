@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ProvisioningNetworkConfigForm from './ProvisioningNetworkConfigForm'
+import ProvisioningVerifyNetworkPage from './ProvisioningVerifyNetworkPage'
 import MainPage from '../components/MainPage';
 import * as provisioningActions from '../actions/provisioning'
 import _ from 'lodash'
@@ -24,7 +25,7 @@ class ProvisioningNetworkConfigPage extends React.Component {
     console.log(values);
     this.props.setPsk(values.psk)
     this.props.sendTestCreds(this.props.selectedNetwork, values.psk)
-
+    this.props.navigator.pushPage({component: ProvisioningVerifyNetworkPage})
   }
 
 

@@ -12,7 +12,12 @@ import {
 
     PROVISIONING_TEST_CREDS_SENDING,
     PROVISIONING_TEST_CREDS_SEND_FAILED,
-    PROVISIONING_TEST_CREDS_SENT
+    PROVISIONING_TEST_CREDS_SENT,
+
+    PROVISIONING_WIFI_STATUS_FETCHING,
+    PROVISIONING_WIFI_STATUS_FETCHED,
+    PROVISIONING_WIFI_STATUS_FETCH_FAILED
+
 } from './types';
 
 
@@ -72,9 +77,9 @@ export function setPsk(psk) {
 
 
 export function sendTestCreds(ssid, psk) {
-  const NETWORKS_LIST_ENDPOINT = 'http://homie.config/wifi/connect'
+  const TEST_CREDS_ENDPOINT = 'http://homie.config/wifi/connect'
 
-  const request = new Request(NETWORKS_LIST_ENDPOINT, {
+  const request = new Request(TEST_CREDS_ENDPOINT, {
       method: 'PUT',
       body: JSON.stringify({
         ssid,
@@ -94,4 +99,25 @@ export function sendTestCreds(ssid, psk) {
               (error) => dispatch({ type: PROVISIONING_TEST_CREDS_SEND_FAILED, payload: error })
           );
   }
+}
+
+
+export function fetchWifiStatus() {
+    const WIFI_STATUS_ENDPOINT = 'http://homie.config/wifi/status'
+
+    const request = new Request(WIFI_STATUS_ENDPOINT, {
+        method: 'GET',
+    });
+
+    return (dispatch) => {
+        dispatch({ type: PROVISIONING_WIFI_STATUS_FETCHING });
+        return fetch(request)
+            .then((response) => {
+                return response.json();
+            })
+            .then(
+                (result) => dispatch({ type: PROVISIONING_WIFI_STATUS_FETCHED, payload: result.status}),
+                (error) => dispatch({ type: PROVISIONING_WIFI_STATUS_FETCH_FAILED, payload: error })
+            );
+    }
 }
