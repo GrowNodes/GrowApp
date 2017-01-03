@@ -133,7 +133,7 @@ export function startRefreshingWifiStatus() {
 }
 
 export function stopRefreshingWifiStatus() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     clearInterval(getState().provisioning.homieWifiStatusSetIntervalId)
     dispatch({type: PROVISIONING_WIFI_STATUS_STOPPED_REFRESHING})
   }
