@@ -38,11 +38,16 @@ export function setPsk(psk) {
 }
 
 export function startRefreshingNetworksList() {
-
+  const intervalId = setInterval(fetchNetworksList, 5000);
+  return (dispatch) => {
+    dispatch({type: PROVISIONING_NETWORKS_LIST_STARTED_REFRESHING, payload: intervalId})
+  }
 }
 
 export function stopRefreshingNetworksList() {
-
+  return (dispatch) => {
+    dispatch({type: PROVISIONING_NETWORKS_LIST_STOPPED_REFRESHING})
+  }
 }
 
 function fetchNetworksList() {
@@ -114,11 +119,16 @@ export function sendTestCreds(ssid, psk) {
 
 
 export function startRefreshingWifiStatus() {
-
+  const intervalId = setInterval(fetchWifiStatus, 5000);
+  return (dispatch) => {
+    dispatch({type: PROVISIONING_WIFI_STATUS_STARTED_REFRESHING, payload: intervalId})
+  }
 }
 
 export function stopRefreshingWifiStatus() {
-
+  return (dispatch) => {
+    dispatch({type: PROVISIONING_WIFI_STATUS_STOPPED_REFRESHING})
+  }
 }
 
 function fetchWifiStatus() {
