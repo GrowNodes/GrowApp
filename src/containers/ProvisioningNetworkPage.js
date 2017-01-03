@@ -23,7 +23,7 @@ class ProvisioningNetworkPage extends React.Component {
   handleSubmit(values) {
     console.log(values);
     this.props.setPsk(values.psk)
-    // this.props.signinUser(values)
+    this.props.sendTestCreds(this.props.selectedNetwork, values.psk)
 
   }
 
