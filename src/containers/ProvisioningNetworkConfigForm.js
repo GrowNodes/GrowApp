@@ -9,7 +9,7 @@ import {
 import NavBar from '../components/NavBar';
 
 
-class ProvisioningNetworkForm extends Component {
+class ProvisioningNetworkConfigForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, null)(reduxForm({
   form: 'sign_in' // a unique name for this form
-})(ProvisioningNetworkForm))
+})(ProvisioningNetworkConfigForm))
