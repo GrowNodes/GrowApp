@@ -4,12 +4,18 @@ import {
     PROVISIONING_SELECT_NETWORK,
     PROVISIONING_SET_PSK,
 
+    PROVISIONING_NETWORKS_LIST_STARTED_REFRESHING,
+    PROVISIONING_NETWORKS_LIST_STOPPED_REFRESHING,
     PROVISIONING_NETWORKS_LIST_FETCHING,
     PROVISIONING_NETWORKS_LIST_FETCH_FAILED,
     PROVISIONING_NETWORKS_LIST_FETCHED,
+
     PROVISIONING_SYSINFO_FETCHING,
     PROVISIONING_SYSINFO_FETCHED,
     PROVISIONING_SYSINFO_FETCH_FAILED,
+
+    PROVISIONING_WIFI_STATUS_STARTED_REFRESHING,
+    PROVISIONING_WIFI_STATUS_STOPPED_REFRESHING,
     PROVISIONING_WIFI_STATUS_FETCHING,
     PROVISIONING_WIFI_STATUS_FETCHED,
     PROVISIONING_WIFI_STATUS_FETCH_FAILED
@@ -18,35 +24,15 @@ import {
 const INITIAL_STATE = {
     phoneConnectedSSID: null,
     homieScannedNetworks: [],
+    homieScannedNetworksSetIntervalId: null,
     homieDeviceInfo: {},
     homieWifiStatus: null,
+    homieWifiStatusSetIntervalId: null,
     objToSend: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
-        case PROVISIONING_SYSINFO_FETCHED:
-
-            return {
-                ...state,
-                homieDeviceInfo: action.payload
-            }
-
-        case PROVISIONING_NETWORKS_LIST_FETCHED:
-            return {
-                ...state,
-                homieScannedNetworks: _.orderBy(
-                    mergeSSID(state.homieScannedNetworks, action.payload),
-                    ['rssi'], ['desc']
-                )
-            }
-
-        case PROVISIONING_WIFI_STATUS_FETCHED:
-            return {
-                ...state,
-                homieWifiStatus: action.payload
-            }
-
         case PROVISIONING_SELECT_NETWORK:
             return {
                 ...state,
@@ -58,6 +44,53 @@ export default function(state = INITIAL_STATE, action) {
               ...state,
               objToSend: {...state.objToSend, wifi: {...state.objToSend.wifi, password: action.payload}}
             }
+
+        case PROVISIONING_NETWORKS_LIST_STARTED_REFRESHING:
+            return {
+                ...state,
+                homieScannedNetworksSetIntervalId: action.payload
+            }
+
+        case PROVISIONING_NETWORKS_LIST_STOPPED_REFRESHING:
+            return {
+                ...state,
+                homieScannedNetworksSetIntervalId: null
+            }
+
+        case PROVISIONING_NETWORKS_LIST_FETCHED:
+            return {
+                ...state,
+                homieScannedNetworks: _.orderBy(
+                    mergeSSID(state.homieScannedNetworks, action.payload),
+                    ['rssi'], ['desc']
+                )
+            }
+
+        case PROVISIONING_SYSINFO_FETCHED:
+
+            return {
+                ...state,
+                homieDeviceInfo: action.payload
+            }
+
+
+        case PROVISIONING_WIFI_STATUS_STARTED_REFRESHING:
+            return {
+                ...state,
+                homieWifiStatusSetIntervalId: action.payload
+            }
+
+        case PROVISIONING_WIFI_STATUS_STOPPED_REFRESHING:
+            return {
+                ...state,
+                homieWifiStatusSetIntervalId: null
+            }
+        case PROVISIONING_WIFI_STATUS_FETCHED:
+            return {
+                ...state,
+                homieWifiStatus: action.payload
+            }
+
     }
 
     return state;
