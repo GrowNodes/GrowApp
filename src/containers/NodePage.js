@@ -2,10 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import TimeAgo from 'react-timeago'
-
 import NavBar from '../components/NavBar';
-import NodeSettingsView from './NodeSettingsView';
-import NodeSettingsCreator from './NodeSettingsCreator';
+import CurrentGrowStage from './CurrentGrowStage';
+import GrowStageChanger from './GrowStageChanger';
 import ManuallyControlledDevices from './ManuallyControlledDevices';
 
 import {
@@ -41,7 +40,7 @@ class NodePage extends Component {
                 <p>
                     System Information<br/>
                 </p>
-                <h2>Connected Devices</h2>
+                <h2>Hardware</h2>
                 <p>
                     Temperature: {node["temperature/degrees"]} &deg;F<br/>
                     Water Level: {node["waterlevel/gallons"]} Gallons<br/>
@@ -49,9 +48,8 @@ class NodePage extends Component {
                     Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                 </p>
                 <ManuallyControlledDevices />
-                <h2>Node Settings</h2>
-                <NodeSettingsView node={node}/>
-                <Button onClick={() => {this.props.navigator.pushPage({component: NodeSettingsCreator})}}>Load a new Node Settings</Button>
+                <CurrentGrowStage node={node}/>
+                <Button onClick={() => {this.props.navigator.pushPage({component: GrowStageChanger})}}>Change stage</Button>
             </Page>
         );
     }
