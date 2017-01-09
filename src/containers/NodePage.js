@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar';
 import CurrentGrowStage from './CurrentGrowStage';
 import GrowStageChanger from './GrowStageChanger';
 import ManuallyControlledDevices from './ManuallyControlledDevices';
+import NodeTodoList from './NodeTodoList';
 
 import {
   Page,
@@ -45,6 +46,11 @@ class NodePage extends Component {
                     </p>
                     <ManuallyControlledDevices />
                 </div>
+                
+                <hr/>
+
+                <h2>Todo List</h2>
+                <NodeTodoList navigator={this.props.navigator}/>
             </Page>
         );
     }
