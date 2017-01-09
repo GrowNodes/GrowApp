@@ -14,14 +14,6 @@ import {
 
 
 class NodePage extends Component {
-    renderLastSeen() {
-        const node = this.props.node;
-        if (node["last_seen"]) {
-            return <TimeAgo date={new Date(node["last_seen"]*1000)} />
-        }
-        return null;
-    }
-
     
     render () {
         const node = this.props.node;
@@ -31,25 +23,28 @@ class NodePage extends Component {
         return (
             <Page renderToolbar={() => <NavBar title={node.serial} navigator={this.props.navigator} backButton={true}/>}>
                 Back to Nodes<br/>
-                <h1>Grow Node {node.serial}</h1>
+                <h1>{node["$name"]}</h1>
                 <p>
-                    Nickname: {node["$name"]}<br/>
-                    Online? {node["$online"]}<br/>
-                    Last Seen: {this.renderLastSeen()}
+                    {node["$online"] == "true" ? "Online" : "This grow node is offline. Changes here will be applied after the connection is restored."}<br/>
                 </p>
-                <p>
-                    System Information<br/>
-                </p>
-                <h2>Hardware</h2>
-                <p>
-                    Temperature: {node["temperature/degrees"]} &deg;F<br/>
-                    Water Level: {node["waterlevel/gallons"]} Gallons<br/>
-                    Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
-                    Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
-                </p>
-                <ManuallyControlledDevices />
+                <hr/>
+                
                 <CurrentGrowStage node={node}/>
                 <Button onClick={() => {this.props.navigator.pushPage({component: GrowStageChanger})}}>Change stage</Button>
+                
+                <hr/>
+                
+                <div>
+                    <h2>Hardware</h2>
+                    <p>
+                        Serial number {node.serial}<br/>
+                        Temperature: {node["temperature/degrees"]} &deg;F<br/>
+                        Water Level: {node["waterlevel/gallons"]} Gallons<br/>
+                        Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
+                        Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
+                    </p>
+                    <ManuallyControlledDevices />
+                </div>
             </Page>
         );
     }
