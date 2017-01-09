@@ -36,7 +36,7 @@ class NodePage extends Component {
                 <hr/>
                 
                 <div>
-                    <h2>Hardware</h2>
+                    <h2>Stats</h2>
                     <p>
                         Serial number {node.serial}<br/>
                         Temperature: {node["temperature/degrees"]} &deg;F<br/>
@@ -44,13 +44,20 @@ class NodePage extends Component {
                         Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
                         Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                     </p>
-                    <ManuallyControlledDevices />
                 </div>
                 
                 <hr/>
 
                 <h2>Todo List</h2>
+                
                 <NodeTodoList navigator={this.props.navigator}/>
+
+                <hr/>
+
+                <h2>Switches</h2>
+                <p>
+                    <ManuallyControlledDevices />
+                </p>
             </Page>
         );
     }
