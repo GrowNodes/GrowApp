@@ -3,6 +3,7 @@ import {
     USER_NODES_FETCHED,
     USER_NODES_FETCH_FAILED,
     SELECT_USER_NODE,
+    SELECT_NODE_TODO_ITEM
 } from './types';
 
 import Base from '../util/Base'
@@ -12,6 +13,11 @@ import Base from '../util/Base'
 export const selectUserNode = serial => ({
   type: SELECT_USER_NODE,
   serial
+});
+
+export const selectNodeTodoItem = uuid => ({
+  type: SELECT_NODE_TODO_ITEM,
+  uuid
 });
 
 export function getUserNodes(ctx) {

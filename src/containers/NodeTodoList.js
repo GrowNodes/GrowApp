@@ -14,7 +14,7 @@ class NodeTodoList extends Component {
     this.state = {};
   }
     componentWillMount() {
-        this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list`, {
+        this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list/incomplete`, {
           context: this,
           state: 'todo_list',
           asArray: false
@@ -24,7 +24,7 @@ class NodeTodoList extends Component {
     componentWillUnmount(){
       Base.removeBinding(this.baseref);
     }
-  
+
   render() {
         const todo_list = this.state.todo_list
         if (!todo_list) {
@@ -35,9 +35,10 @@ class NodeTodoList extends Component {
             dataSource={Object.keys(this.state.todo_list).map((key) => this.state.todo_list[key])}
             renderRow={(list_item) =>
               <NodeTodoListItem
-                key={list_item.text}
+                key={list_item.uuid}
                 navigator={this.props.navigator}
                 {...list_item}
+                uid={list_item.uuid}
               />
             }
           />
