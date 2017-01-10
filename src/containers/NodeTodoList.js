@@ -5,7 +5,7 @@ import Base from '../util/Base'
 import TimeAgo from 'react-timeago'
 
 import {List} from 'react-onsenui';
-
+import _ from 'lodash'
 import NodeTodoListItem from '../components/NodeTodoListItem'
 
 class NodeTodoList extends Component {
@@ -14,10 +14,15 @@ class NodeTodoList extends Component {
     this.state = {};
   }
     componentWillMount() {
-        this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list/incomplete`, {
+        this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list`, {
           context: this,
           state: 'todo_list',
-          asArray: false
+          asArray: false,
+          queries: {
+              orderByChild: 'created_at',
+              orderByChild: 'completed_at',
+              equalTo: null
+          }
         });
     }
 
@@ -29,6 +34,9 @@ class NodeTodoList extends Component {
         const todo_list = this.state.todo_list
         if (!todo_list) {
             return <div>Loading todo list...</div>
+        }
+        if (_.isEmpty(todo_list)) {
+          return <p>You don't need to do anything!</p>
         }
         return (
           <List

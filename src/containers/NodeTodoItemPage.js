@@ -5,6 +5,8 @@ import TimeAgo from 'react-timeago'
 import NavBar from '../components/NavBar';
 import Base from '../util/Base'
 
+import _ from 'lodash'
+
 import {
   Page,
   Button
@@ -17,39 +19,53 @@ class NodeTodoItemPage extends Component {
     this.state = {};
   }
     componentWillMount() {
-        this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list/incomplete/${this.props.todo_uid}`, {
+        this.baseref = Base.syncState(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_uid}`, {
           context: this,
-          state: 'incomplete_todo_item',
-          asArray: false
-        });
-
-
-        this.baseref2 = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list/complete/${this.props.todo_uid}`, {
-          context: this,
-          state: 'complete_todo_item',
+          state: 'todo_item',
           asArray: false
         });
     }
 
     componentWillUnmount(){
       Base.removeBinding(this.baseref);
-      Base.removeBinding(this.baseref2);
     }
 
+    setComplete() {
+      Base.update(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_uid}`, {
+        data: {
+          ...this.state.todo_item,
+          completed_at: new Date
+        }
+      }).then(() => {
+        // Router.transitionTo('dashboard');
+      }).catch(err => {
+        //handle error
+      });
+    }
+
+    renderCompleteButton() {
+      if (this.state.todo_item.completed_at === undefined) {
+        return <Button onClick={this.setComplete.bind(this)}>Mark as done</Button>
+      }
+    }
 
     render () {
-      const todo_item = this.state.incomplete_todo_item === {} ? this.state.complete_todo_item : this.state.incomplete_todo_item
-      
+      const todo_item = this.state.todo_item
+      const is_complete = todo_item.completed_at !== undefined
+
         return (
             <Page renderToolbar={() => <NavBar title={"Todo item"} navigator={this.props.navigator} backButton={true}/>}>
-                <h1>Todo Item {this.props.todo_uid}</h1>
+                <h1>
+                  {is_complete ? "Completed" : ""} Todo Item
+                </h1>
                 <p>
-                  Created at {todo_item.created_at}
+                  ID: {todo_item.uuid} <br/>
+                  Created: {todo_item.created_at}
                 </p>
-                {JSON.stringify (this.state.complete_todo_item)}
                 <p>
                   {todo_item.text}
                 </p>
+                <p>{this.renderCompleteButton()}</p>
             </Page>
         );
     }

@@ -44,7 +44,7 @@ class UserNodeListItem extends Component {
       </ListItem>
     );
   };
-    
+
 
 }
 
