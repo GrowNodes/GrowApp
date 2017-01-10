@@ -56,14 +56,15 @@ class NodeTodoItemPage extends Component {
         return (
             <Page renderToolbar={() => <NavBar title={"Todo item"} navigator={this.props.navigator} backButton={true}/>}>
                 <h1>
-                  {is_complete ? "Completed" : ""} Todo Item
+                  {todo_item.title}
                 </h1>
                 <p>
                   ID: {todo_item.uuid} <br/>
-                  Created: {todo_item.created_at}
+                  Created: {todo_item.created_at} <br/>
+                  {is_complete ? `You completed this at: ${todo_item.completed_at} ` : "You haven't done it yet..."}
                 </p>
                 <p>
-                  {todo_item.text}
+                  {todo_item.body}
                 </p>
                 <p>{this.renderCompleteButton()}</p>
             </Page>

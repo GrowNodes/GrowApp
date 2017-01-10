@@ -15,7 +15,7 @@ import {
 
 
 class NodePage extends Component {
-    
+
     render () {
         const node = this.props.node;
         if (!node) {
@@ -29,35 +29,32 @@ class NodePage extends Component {
                     {node["$online"] == "true" ? "Online" : "This grow node is offline. Changes here will be applied after the connection is restored."}<br/>
                 </p>
                 <hr/>
-                
+
                 <CurrentGrowStage node={node}/>
                 <Button onClick={() => {this.props.navigator.pushPage({component: GrowStageChanger})}}>Change stage</Button>
-                
+
                 <hr/>
-                
+
                 <div>
                     <h2>Stats</h2>
                     <p>
-                        Serial number {node.serial}<br/>
                         Temperature: {node["temperature/degrees"]} &deg;F<br/>
                         Water Level: {node["waterlevel/gallons"]} Gallons<br/>
                         Grow Light: {node["grow_light/on"] ? "ON" : "OFF"}<br/>
                         Fan: {node["fan/on"] ? "ON" : "OFF"}<br/>
                     </p>
                 </div>
-                
+
                 <hr/>
 
                 <h2>Todo List</h2>
-                
+
                 <NodeTodoList navigator={this.props.navigator}/>
 
                 <hr/>
 
                 <h2>Switches</h2>
-                <p>
-                    <ManuallyControlledDevices />
-                </p>
+                  <ManuallyControlledDevices />
             </Page>
         );
     }
