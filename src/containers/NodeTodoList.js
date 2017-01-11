@@ -17,7 +17,7 @@ class NodeTodoList extends Component {
         this.baseref = Base.bindToState(`grow_nodes/${this.props.selected_user_node}/todo_list`, {
           context: this,
           state: 'todo_list',
-          asArray: false,
+          asArray: true,
           queries: {
               orderByChild: 'created_at',
               orderByChild: 'completed_at',
@@ -40,13 +40,13 @@ class NodeTodoList extends Component {
         }
         return (
           <List
-            dataSource={Object.keys(this.state.todo_list).map((key) => this.state.todo_list[key])}
+            dataSource={todo_list}
             renderRow={(list_item) =>
               <NodeTodoListItem
-                key={list_item.uuid}
+                key={list_item.key}
                 navigator={this.props.navigator}
                 {...list_item}
-                uid={list_item.uuid}
+                uuid={list_item.key}
               />
             }
           />

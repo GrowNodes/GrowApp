@@ -19,7 +19,7 @@ class NodeTodoItemPage extends Component {
     this.state = {};
   }
     componentWillMount() {
-        this.baseref = Base.syncState(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_uid}`, {
+        this.baseref = Base.syncState(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_key}`, {
           context: this,
           state: 'todo_item',
           asArray: false
@@ -31,7 +31,7 @@ class NodeTodoItemPage extends Component {
     }
 
     setComplete() {
-      Base.update(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_uid}`, {
+      Base.update(`grow_nodes/${this.props.selected_user_node}/todo_list/${this.props.todo_key}`, {
         data: {
           ...this.state.todo_item,
           completed_at: new Date
@@ -59,7 +59,7 @@ class NodeTodoItemPage extends Component {
                   {todo_item.title}
                 </h1>
                 <p>
-                  ID: {todo_item.uuid} <br/>
+                  ID: {this.props.todo_key} <br/>
                   Created: {todo_item.created_at} <br/>
                   {is_complete ? `You completed this at: ${todo_item.completed_at} ` : "You haven't done it yet..."}
                 </p>
@@ -74,7 +74,7 @@ class NodeTodoItemPage extends Component {
 
 const mapStateToProps = (state) => ({
   selected_user_node: state.selectedUserNode,
-  todo_uid: state.selectedNodeTodoItem
+  todo_key: state.selectedNodeTodoItem
 });
 
 export default connect(mapStateToProps, null)(NodeTodoItemPage);
