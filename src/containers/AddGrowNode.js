@@ -33,8 +33,8 @@ const AddGrowNode = ({actions}) => {
 
   return (
     <div>
-    {button}
-    <AddGrowNodeDialog />
+    {/* {button}
+    <AddGrowNodeDialog /> */}
     </div>
   );
 };

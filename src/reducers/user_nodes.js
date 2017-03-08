@@ -36,7 +36,8 @@ export default function(state = INITIAL_STATE, action) {
   case "$implementation/ota/enabled":
   case "$stats/signal":
   case "water_level/gallons":
-  case "air_temp/degrees":
+  case "air_sensor/temperature":
+  case "water_temp/temperature":
     var message = action.payload.message;
 
     var serial = action.payload.serial;
