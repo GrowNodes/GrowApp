@@ -24,7 +24,7 @@ export function getUserNodes(ctx) {
     return (dispatch) => {
         dispatch({ type: USER_NODES_FETCHING });
 
-        return Base.fetch('grow_nodes', {
+        return Base.fetch('grownodes', {
             context: ctx,
             asArray: false,
             queries: {
