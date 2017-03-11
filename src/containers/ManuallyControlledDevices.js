@@ -7,17 +7,16 @@ import {mqttSend} from "../actions/mqtt";
 import {Switch} from "react-onsenui";
 
 class ManuallyControlledDevices extends Component {
-  handleAirPumpChange(e) {
+  handleWaterPumpChange(e) {
     const msgToSend = e.target.checked ? "true" : "false";
-
-    this.props.mqttSend(`${this.props.node.serial}/air_pump/on/set`, msgToSend);
+    this.props.mqttSend(`${this.props.node.serial}/water_pump_override/enabled/set`, msgToSend);
   }
 
   render() {
     return (
       <div>
-        Air Pump<Switch checked={this.props.node["air_pump/on"]} onChange={
-          this.handleAirPumpChange.bind(this)
+        Override water pump to ON <Switch checked={this.props.node["water_pump_override/enabled"]} onChange={
+          this.handleWaterPumpChange.bind(this)
         } />
       </div>
     );
