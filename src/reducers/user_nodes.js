@@ -55,6 +55,7 @@ export default function(state = INITIAL_STATE, action) {
   case "grow_light/on":
   case "fan/on":
   case "water_pump_override/enabled":
+  case "grow_light_override/enabled":
   case "water_pump/on":
     var message = action.payload.message == "true" ? true : false;
 
